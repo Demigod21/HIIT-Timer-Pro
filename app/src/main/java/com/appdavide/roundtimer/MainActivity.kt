@@ -5,9 +5,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
-import com.appdavide.fragment.CustomFragment
-import com.appdavide.fragment.SavedFragment
-import com.appdavide.fragment.SimpleFragment
+import com.appdavide.roundtimer.fragment.CustomFragment
+import com.appdavide.roundtimer.fragment.SavedFragment
+import com.appdavide.roundtimer.fragment.SimpleFragment
 
 class MainActivity : AppCompatActivity() {
 
