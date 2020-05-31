@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textMessage: TextView
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_saved -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.frameLayout, SavedFragment())
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_custom -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.frameLayout, CustomFragment())
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_simple -> {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.frameLayout, SimpleFragment())
@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 }
