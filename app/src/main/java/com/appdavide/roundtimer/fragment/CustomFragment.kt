@@ -1,16 +1,19 @@
 package com.appdavide.roundtimer.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.appdavide.roundtimer.R
+import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
 import javax.sql.DataSource
 
@@ -56,6 +59,14 @@ class CustomFragment : Fragment() {
 
         Log.d("TAG", "LOG DOPO ADD DATA TO RECYCLER")
 
+
+        val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
+
+        btnStartTimer.setOnClickListener{
+            val context = btnStartTimer.context
+            val intent = Intent(context, Timer::class.java)
+            context.startActivity(intent)
+        }
 
         return vista
 
