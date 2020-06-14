@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
+import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
 import javax.sql.DataSource
 
@@ -55,17 +56,42 @@ class CustomFragment : Fragment() {
 
         //ADD INIT DATA TO RECYCLER
         val data = com.appdavide.roundtimer.repository.DataSource.createDataSet()
+
         adat.submitList(data)
+
 
         Log.d("TAG", "LOG DOPO ADD DATA TO RECYCLER")
 
 
         val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
+        val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
+
+        val testo = "Passaggio Parametri"
+        val array : Array<String> = Array(2) {"Test2"; "Test3"}
 
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
             val intent = Intent(context, Timer::class.java)
+            intent.putExtra("test", testo)
+            intent.putExtra("test2", array)
             context.startActivity(intent)
+        }
+
+        btnAddRound.setOnClickListener{
+
+            data.add(
+                Round(
+                    "provaaggiunta",
+                    1,
+                    1,
+                    1,
+                    10
+                )
+            )
+            Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")
+            adat.notifyDataSetChanged()
+
+
         }
 
         return vista
