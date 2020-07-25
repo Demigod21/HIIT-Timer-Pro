@@ -64,16 +64,20 @@ class CustomFragment : Fragment() {
 
 
         val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
+
         val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
 
         val testo = "Passaggio Parametri"
         val array : Array<String> = Array(2) {"Test2"; "Test3"}
+
+
 
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
             val intent = Intent(context, Timer::class.java)
             intent.putExtra("test", testo)
             intent.putExtra("test2", array)
+//            intent.putExtra("dataRounds", data)
             context.startActivity(intent)
         }
 
@@ -90,8 +94,6 @@ class CustomFragment : Fragment() {
             )
             Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")
             adat.notifyDataSetChanged()
-
-
         }
 
         return vista

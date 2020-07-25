@@ -13,6 +13,8 @@ class Timer : AppCompatActivity() {
         val testo = intent.getStringExtra("test")
         val test1 = intent.getStringArrayExtra("test2")
 
+
+
         txt_prova.text = testo
         txt_prova_2.setText(test1.get(1))
 
