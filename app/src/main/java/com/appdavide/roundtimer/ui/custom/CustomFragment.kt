@@ -1,4 +1,4 @@
-package com.appdavide.roundtimer.fragment
+package com.appdavide.roundtimer.ui.custom
 
 
 import android.content.Intent
@@ -16,7 +16,6 @@ import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
-import javax.sql.DataSource
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

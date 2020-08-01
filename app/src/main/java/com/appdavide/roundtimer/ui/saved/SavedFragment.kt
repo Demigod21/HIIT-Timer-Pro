@@ -1,4 +1,4 @@
-package com.appdavide.roundtimer.fragment
+package com.appdavide.roundtimer.ui.saved
 
 
 import android.os.Bundle
@@ -25,7 +25,10 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved, container, false)
+        val vista = inflater.inflate(R.layout.fragment_saved, container, false)
+
+
+        return vista
     }
 
 

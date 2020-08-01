@@ -48,12 +48,18 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
             workoutdbDAO.deleteAll()
             var workout1 = WorkoutDb("NomeTest1Workout")
             workoutdbDAO.insert(workout1)
+            var workout2 = WorkoutDb("NomeTest2Workout")
+            workoutdbDAO.insert(workout2)
 
 
             //ROUND
             rounddbDAO.deleteAll()
-            var round1 = RoundDb("prep", 17, 70, 7, 120, workoutId = 0)
+            var round1 = RoundDb("prep", 0, 80, 0, 80, workoutId = 0)
             rounddbDAO.insert(round1)
+            var round2 = RoundDb("cooldown", 0, 70, 0, 70, workoutId = 0)
+            rounddbDAO.insert(round2)
+            var round3 = RoundDb("workvero1010", 10, 10, 15, 250, workoutId = 1)
+            rounddbDAO.insert(round3)
         }
 
 
