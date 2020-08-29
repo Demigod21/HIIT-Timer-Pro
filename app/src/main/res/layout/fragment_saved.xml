@@ -17,4 +17,14 @@
             app:layout_constraintTop_toTopOf="@+id/textView5" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/saved_recycler"
+            android:layout_width="390dp"
+            android:layout_height="195dp"
+            android:layout_marginTop="128dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            tools:listitem="@layout/saved_list_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

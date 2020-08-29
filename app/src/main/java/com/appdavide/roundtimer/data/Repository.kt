@@ -13,4 +13,13 @@ class Repository(private val workoutDbDAO: WorkoutDbDAO,
     val allWorkouts : LiveData<List<WorkoutDb>> = workoutDbDAO.getallWorkouts()
     val allWorkoutsAndRounds : List<WorkoutDbAndRoundsDb> = workoutDbDAO.getWorkoutDbAndRoundsDb()
 
+
+    suspend fun insertRound(round: RoundDb){
+        roundDbDAO.insert(round)
+    }
+
+    suspend fun insertWorkouts(workout: WorkoutDb){
+        workoutDbDAO.insert(workout)
+    }
+
 }
