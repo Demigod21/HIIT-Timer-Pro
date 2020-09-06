@@ -7,7 +7,7 @@ import com.appdavide.roundtimer.data.Repository
 import com.appdavide.roundtimer.data.RoundtimerRoomDatabase
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
 
-class SavedFragmentViewModelclass (application: Application) : AndroidViewModel(application) {
+class SavedFragmentViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
     // Using LiveData and caching what getAlphabetizedWords returns has several benefits:
