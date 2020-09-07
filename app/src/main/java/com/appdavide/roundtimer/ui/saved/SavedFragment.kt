@@ -7,10 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.appdavide.roundtimer.R
+import com.appdavide.roundtimer.data.RoundtimerRoomDatabase
+import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
+import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbDAO
+import com.appdavide.roundtimer.service.SavedRecyclerAdapter
 import java.util.Observer
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +31,10 @@ class SavedFragment : Fragment() {
 
     private lateinit var roundViewModel: SavedFragmentViewModel //todo cambiare nome e dargli un cazzo di senso porca eva
 
+    private lateinit var adapter: SavedRecyclerAdapter
+
+    private lateinit var dao: WorkoutDbDAO
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,12 +42,22 @@ class SavedFragment : Fragment() {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.fragment_saved, container, false)
 
-        val recyclerView = vista.findViewById<RecyclerView>(R.id.saved_recycler)
+/*        val recyclerView = vista.findViewById<RecyclerView>(R.id.saved_recycler)
         val adapter = this.context?.let { SavedAdapter(it) }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
-        roundViewModel = ViewModelProvider(this).get(SavedFragmentViewModel::class.java)
+        roundViewModel = ViewModelProvider(this).get(SavedFragmentViewModel::class.java)*/
+
+        val recycler = vista.findViewById<RecyclerView>(R.id.saved_recycler)
+        recycler.layoutManager = LinearLayoutManager(this.activity)
+        adapter = SavedRecyclerAdapter()
+
+        //dao = this.context?.let { RoundtimerRoomDatabase.getDatabase(it, scope).WorkoutDbDAO() } //TODO COME CAZZO LO PRENDO IL DAO DA QUA
+
+
+        val data = dao.getWorkoutDbAndRoundsDb();
+        adapter.submitList(data)
 
 
 
