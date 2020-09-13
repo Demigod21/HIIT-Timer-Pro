@@ -11,15 +11,17 @@ class Repository(private val workoutDbDAO: WorkoutDbDAO,
                  private val roundDbDAO: RoundDbDAO)    {
     val allRounds : LiveData<List<RoundDb>> = roundDbDAO.getallRounds()
     val allWorkouts : LiveData<List<WorkoutDb>> = workoutDbDAO.getallWorkouts()
-    val allWorkoutsAndRounds : List<WorkoutDbAndRoundsDb> = workoutDbDAO.getWorkoutDbAndRoundsDb()
+    val allWorkoutsAndRounds : LiveData<List<WorkoutDbAndRoundsDb>> = workoutDbDAO.getWorkoutDbAndRoundsDb()
 
 
     suspend fun insertRound(round: RoundDb){
         roundDbDAO.insert(round)
     }
 
-    suspend fun insertWorkouts(workout: WorkoutDb){
-        workoutDbDAO.insert(workout)
+    suspend fun insertWorkout(workout: WorkoutDb) : Long {
+        return workoutDbDAO.insert(workout)
     }
+
+
 
 }

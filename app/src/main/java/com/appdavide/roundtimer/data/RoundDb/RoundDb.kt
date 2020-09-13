@@ -17,8 +17,8 @@ class RoundDb(
     @ColumnInfo(name = "cycles") var cycles: Int,
     @ColumnInfo(name = "dur") var dur: Int,
 
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @ColumnInfo(name = "workoutId") var workoutId: Long,
 
-    var workoutId: Int
+    @PrimaryKey(autoGenerate = true) val id: Long = 0
 
 )

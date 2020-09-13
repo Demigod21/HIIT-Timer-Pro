@@ -18,7 +18,7 @@ class SavedAdapter internal constructor(
 
 
     inner class SavedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val workItemView: TextView = itemView.findViewById(R.id.text_titolo)
+//        val workItemView: TextView = itemView.findViewById(R.id.text_titolo)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedViewHolder {
         val itemView = inflater.inflate(R.layout.saved_list_item, parent, false)
@@ -27,7 +27,7 @@ class SavedAdapter internal constructor(
 
     override fun onBindViewHolder(holder: SavedViewHolder, position: Int) {
         val current = workouts[position]
-        holder.workItemView.text = current.name
+//        holder.workItemView.text = current.name
     }
 
     override fun getItemCount() = workouts.size

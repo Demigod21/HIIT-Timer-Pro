@@ -8,16 +8,17 @@ import com.appdavide.roundtimer.data.RoundDb.RoundDb
 interface WorkoutDbDAO{
 
     @Query("SELECT * from workout")
-    suspend fun getallWorkouts(): LiveData<List<WorkoutDb>>
+    fun getallWorkouts(): LiveData<List<WorkoutDb>>
 
+    //  We return a Long (PK type) so we have the inserted record id available
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(workout: WorkoutDb)
+    suspend fun insert(workout: WorkoutDb) : Long
 
     @Query("DELETE FROM workout")
     suspend fun deleteAll()
 
     @Transaction
-    @Query("SELECT * FROM workout")
-    suspend fun getWorkoutDbAndRoundsDb(): List<WorkoutDbAndRoundsDb>
+    @Query("SELECT workout.name, round.* FROM workout left outer JOIN round ON workout.id = round.workoutId")
+    fun getWorkoutDbAndRoundsDb(): LiveData<List<WorkoutDbAndRoundsDb>>
 
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.appdavide.roundtimer.R
+import com.appdavide.roundtimer.data.Repository
 import com.appdavide.roundtimer.data.RoundtimerRoomDatabase
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbDAO
@@ -29,9 +30,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class SavedFragment : Fragment() {
 
-    private lateinit var roundViewModel: SavedFragmentViewModel //todo cambiare nome e dargli un cazzo di senso porca eva
-
-    private lateinit var adapter: SavedRecyclerAdapter
+    private lateinit var savedFragmentViewModel: SavedFragmentViewModel
 
     private lateinit var dao: WorkoutDbDAO
 
@@ -40,30 +39,23 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val vista = inflater.inflate(R.layout.fragment_saved, container, false)
+        val view = inflater.inflate(R.layout.fragment_saved, container, false)
 
-/*        val recyclerView = vista.findViewById<RecyclerView>(R.id.saved_recycler)
-        val adapter = this.context?.let { SavedAdapter(it) }
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        //  This fragment viewmodel
+        savedFragmentViewModel = ViewModelProvider(this).get(SavedFragmentViewModel::class.java)
 
-        roundViewModel = ViewModelProvider(this).get(SavedFragmentViewModel::class.java)*/
+        //  Recycler and adapter
+        val savedRecycler = view.findViewById<RecyclerView>(R.id.saved_recycler)
+        savedRecycler.layoutManager = LinearLayoutManager(this.activity)
+        val adapter = SavedRecyclerAdapter()
+        savedRecycler.adapter = adapter
 
-        val recycler = vista.findViewById<RecyclerView>(R.id.saved_recycler)
-        recycler.layoutManager = LinearLayoutManager(this.activity)
-        adapter = SavedRecyclerAdapter()
-
-
-        dao = context?.let { RoundtimerRoomDatabase.getDatabase(it).WorkoutDbDAO() }!!;
-
-
-        val data = dao.getWorkoutDbAndRoundsDb(); //todo problema rimane qua?
-
-        adapter.submitList(data)
+        savedFragmentViewModel.allWorkoutDbAndRoundsDb.observe(viewLifecycleOwner, androidx.lifecycle.Observer { items ->
+            items?.let{adapter.setItems(it)
+        } })
 
 
-
-        return vista
+        return view
     }
 
 

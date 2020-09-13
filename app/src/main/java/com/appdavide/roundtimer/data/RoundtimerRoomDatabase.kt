@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [WorkoutDb::class, RoundDb::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class RoundtimerRoomDatabase : RoomDatabase(){
 
-    val dbName = "shdrll.db"
+    val dbName = "roundtimer.db"
 
     abstract fun WorkoutDbDAO() : WorkoutDbDAO
     abstract fun RoundDbDAO() : RoundDbDAO
@@ -31,7 +31,6 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
 
         override fun onCreate(db : SupportSQLiteDatabase){
             super.onCreate(db)
-            INSTANCE
             INSTANCE?.let{ database ->
                 scope.launch {
                     //  TODO    populateInitialDatabase
@@ -41,25 +40,35 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
             }
         }
 
+        //  Disable useless wal shm files for testing
+        //  TODO Disable on release
+        override fun onOpen(db: SupportSQLiteDatabase) {
+            db.disableWriteAheadLogging()
+            super.onOpen(db)
+        }
 
         suspend fun populateTestingDatabase(workoutdbDAO: WorkoutDbDAO,
                                             rounddbDAO: RoundDbDAO){
-            //WORKOUT
+
             workoutdbDAO.deleteAll()
-            var workout1 = WorkoutDb("NomeTest1Workout")
-            workoutdbDAO.insert(workout1)
-            var workout2 = WorkoutDb("NomeTest2Workout")
-            workoutdbDAO.insert(workout2)
-
-
-            //ROUND
             rounddbDAO.deleteAll()
-            var round1 = RoundDb("prep", 0, 80, 0, 80, workoutId = 0)
-            rounddbDAO.insert(round1)
-            var round2 = RoundDb("cooldown", 0, 70, 0, 70, workoutId = 0)
-            rounddbDAO.insert(round2)
-            var round3 = RoundDb("workvero1010", 10, 10, 15, 250, workoutId = 1)
-            rounddbDAO.insert(round3)
+
+            Log.e("DEBUG", "Populating Database")
+            //WORKOUT
+            val populatedWo1Id = workoutdbDAO.insert(WorkoutDb("Workout Number 1"))
+
+            val populatedWo2Id = workoutdbDAO.insert(WorkoutDb("Workout Number 2"))
+
+            //ROUND WO1
+            rounddbDAO.insert(RoundDb("prep", 0, 80, 0, 80, populatedWo1Id))
+            rounddbDAO.insert(RoundDb("cooldown", 0, 70, 0, 70, populatedWo1Id))
+            rounddbDAO.insert(RoundDb("exercise", 10, 10, 15, 250, populatedWo1Id))
+
+            //ROUND WO2
+            rounddbDAO.insert(RoundDb("Preparation", 0, 80, 0, 80, populatedWo2Id))
+            rounddbDAO.insert(RoundDb("Exercise", 10, 10, 15, 250, populatedWo2Id))
+
+
         }
 
 
@@ -69,7 +78,7 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
         @Volatile
         private var INSTANCE: RoundtimerRoomDatabase? = null
 
-        fun getDatabase(context: Context): RoundtimerRoomDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): RoundtimerRoomDatabase {
             val tempInstance = INSTANCE
             if( tempInstance != null){
                 return tempInstance
@@ -79,8 +88,8 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     RoundtimerRoomDatabase::class.java,
-                    "shdrll.db"
-                ).build()
+                    "roundtimer.db"
+                ).addCallback(RoundtimerRoomDatabaseCallback(scope)).build()
                 Log.e("DEBUG", "Database BUILT")
                 INSTANCE = instance
                 return instance

@@ -9,6 +9,6 @@ class WorkoutDb(
 
     @ColumnInfo(name = "name") var name : String,
 
-    @PrimaryKey(autoGenerate = true) val id: Int = 0
+    @PrimaryKey(autoGenerate = true) val id: Long = 0
 
     )
