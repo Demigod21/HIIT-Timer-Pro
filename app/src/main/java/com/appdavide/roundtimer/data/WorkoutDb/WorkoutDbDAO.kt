@@ -8,7 +8,7 @@ import com.appdavide.roundtimer.data.RoundDb.RoundDb
 interface WorkoutDbDAO{
 
     @Query("SELECT * from workout")
-    suspend fun getallWorkouts(): LiveData<List<WorkoutDb>>
+    fun getallWorkouts(): LiveData<List<WorkoutDb>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(workout: WorkoutDb)
@@ -18,6 +18,6 @@ interface WorkoutDbDAO{
 
     @Transaction
     @Query("SELECT * FROM workout")
-    suspend fun getWorkoutDbAndRoundsDb(): List<WorkoutDbAndRoundsDb>
+    fun getWorkoutDbAndRoundsDb(): List<WorkoutDbAndRoundsDb>
 
 }
