@@ -69,7 +69,7 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
         @Volatile
         private var INSTANCE: RoundtimerRoomDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): RoundtimerRoomDatabase {
+        fun getDatabase(context: Context): RoundtimerRoomDatabase {
             val tempInstance = INSTANCE
             if( tempInstance != null){
                 return tempInstance
@@ -80,7 +80,7 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
                     context.applicationContext,
                     RoundtimerRoomDatabase::class.java,
                     "shdrll.db"
-                ).addCallback(RoundtimerRoomDatabaseCallback(scope)).build()
+                ).build()
                 Log.e("DEBUG", "Database BUILT")
                 INSTANCE = instance
                 return instance

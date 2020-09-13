@@ -53,10 +53,12 @@ class SavedFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(this.activity)
         adapter = SavedRecyclerAdapter()
 
-        //dao = this.context?.let { RoundtimerRoomDatabase.getDatabase(it, scope).WorkoutDbDAO() } //TODO COME CAZZO LO PRENDO IL DAO DA QUA
+
+        dao = context?.let { RoundtimerRoomDatabase.getDatabase(it).WorkoutDbDAO() }!!;
 
 
-        val data = dao.getWorkoutDbAndRoundsDb();
+        val data = dao.getWorkoutDbAndRoundsDb(); //todo problema rimane qua?
+
         adapter.submitList(data)
 
 
