@@ -6,6 +6,8 @@ class DataSource {
 
     companion object{
 
+        var list2 = ArrayList<Round>()
+
         fun createDataSet(): ArrayList<Round>{
             val list = ArrayList<Round>()
             list.add(

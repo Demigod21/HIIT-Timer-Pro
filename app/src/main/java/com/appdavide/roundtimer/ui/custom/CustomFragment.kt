@@ -1,8 +1,10 @@
 package com.appdavide.roundtimer.ui.custom
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.models.Round
+import com.appdavide.roundtimer.repository.DataSource
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.io.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +36,8 @@ class CustomFragment : Fragment() {
 
     private lateinit var adat: RoundRecyclerAdapter
 
+    private lateinit var data: ArrayList<Round>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +45,12 @@ class CustomFragment : Fragment() {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.fragment_custom, container, false)
 
+        Log.d("TAG", "LOG PRIMA LOAD DATA")
+        loadData()
+        Log.d("TAG", "LOG DOPO LOAD DATA")
+
         Log.d("TAG", "LOG PRIMA DEL FIND BY ID")
-
-
         val recycler = vista.findViewById(R.id.listaCustom) as RecyclerView
-
         Log.d("TAG", "LOG DOPO DEL FIND BY ID")
 
 
@@ -53,8 +62,10 @@ class CustomFragment : Fragment() {
         Log.d("TAG", "LOG DOPO INIT RECYCLER")
 
 
+
         //ADD INIT DATA TO RECYCLER
-        val data = com.appdavide.roundtimer.repository.DataSource.createDataSet()
+//        val data = com.appdavide.roundtimer.repository.DataSource.createDataSet()
+//        data = DataSource.list2 //todo guardare questo
 
         adat.submitList(data)
 
@@ -82,9 +93,43 @@ class CustomFragment : Fragment() {
 
         btnAddRound.setOnClickListener{
 
+
+            try {
+                val myFile = File(Environment.getDataDirectory().path + "/textfile.txt")
+                Log.d("TAG", "LOG PROVA FILE 1 CERCO PATH "+Environment.getDataDirectory().path)
+                myFile.createNewFile()
+                val fOut = FileOutputStream(myFile)
+                val myOutWriter = OutputStreamWriter(fOut)
+                myOutWriter.write("replace this with your string")
+                myOutWriter.close()
+                fOut.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            val pathoffile: String
+            var contents = ""
+
+            val myFile = File(Environment.getDataDirectory().path + "/textfile.txt")
+
+            try {
+                val br = BufferedReader(FileReader(myFile))
+                var c: Int
+                while (br.read() != -1) {
+                    c=br.read()
+                    contents = contents + c.toChar()
+                }
+
+            } catch (e: IOException) {
+                //You'll need to add proper error handling here
+            }
+
+            Log.d("TAG", "LOG PROVA FILE DOPO LETTURA "+contents)
+
+
             data.add(
                 Round(
-                    "provaaggiunta",
+                    "provaaggiunta123",
                     1,
                     1,
                     1,
@@ -92,14 +137,38 @@ class CustomFragment : Fragment() {
                 )
             )
             Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")
+            Log.d("TAG", "LOG PRIMA SAVE DATA")
+            saveData()
+            Log.d("TAG", "LOG DOPO SAVE DATA")
             adat.notifyDataSetChanged()
         }
 
         return vista
 
-
-
     }
 
+    fun saveData(){
+        val sharedPref = activity?.getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
+//        val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
+        val editor = sharedPref?.edit()
+        val gson = Gson()
+        val json = gson.toJson(data)
+        editor?.putString("task list", json)
+        editor?.apply()
+    }
+
+    fun loadData(){
+        val sharedPref = activity?.getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
+        val emptyList = Gson().toJson(ArrayList<Round>())
+        val gson = Gson()
+        val json = sharedPref?.getString("task list", emptyList)
+        val type = object : TypeToken<ArrayList<Round>>() {}.type
+        data = gson?.fromJson(json, type)
+
+        if (data == null) {
+            data = ArrayList()
+        }
+
+    }
 
 }
