@@ -50,7 +50,7 @@ class SavedFragment : Fragment() {
         val adapter = SavedRecyclerAdapter()
         savedRecycler.adapter = adapter
 
-        savedFragmentViewModel.allWorkoutDbAndRoundsDb.observe(viewLifecycleOwner, androidx.lifecycle.Observer { items ->
+        savedFragmentViewModel.allWorkouts.observe(viewLifecycleOwner, androidx.lifecycle.Observer { items ->
             items?.let{adapter.setItems(it)
         } })
 

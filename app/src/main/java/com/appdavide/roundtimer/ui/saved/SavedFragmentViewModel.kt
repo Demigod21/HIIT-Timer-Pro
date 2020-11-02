@@ -6,13 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.appdavide.roundtimer.data.Repository
 import com.appdavide.roundtimer.data.RoundtimerRoomDatabase
+import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
 
 class SavedFragmentViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
 
-    val allWorkoutDbAndRoundsDb : LiveData<List<WorkoutDbAndRoundsDb>>
+    val allWorkouts : LiveData<List<WorkoutDb>>
 
     init {
         val workoutDAO = RoundtimerRoomDatabase.getDatabase(application, viewModelScope).WorkoutDbDAO()
@@ -20,8 +21,7 @@ class SavedFragmentViewModel (application: Application) : AndroidViewModel(appli
 
         repository = Repository(workoutDAO, roundDAO)
 
-
-        allWorkoutDbAndRoundsDb = repository.allWorkoutsAndRounds
+        allWorkouts = repository.allWorkouts
 
     }
 

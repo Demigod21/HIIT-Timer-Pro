@@ -49,5 +49,6 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        navView.setSelectedItemId(R.id.navigation_saved);
     }
 }

@@ -8,18 +8,17 @@ import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
+import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
 import com.appdavide.roundtimer.models.Round
 import kotlinx.android.synthetic.main.saved_list_item.view.*
 
 class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedViewHolder>() {
 
-    private var items = emptyList<WorkoutDbAndRoundsDb>()
+    private var items = emptyList<WorkoutDb>()
 
     inner class savedViewHolder(savedView: View) : RecyclerView.ViewHolder(savedView){
         val workoutNameText: TextView = savedView.findViewById(R.id.workoutNameTextView)
-        val roundSummaryText: TextView = savedView.findViewById(R.id.roundSummaryTextView)
-        val roundDurationText: TextView = savedView.findViewById(R.id.roundTotalTimeTextView)
 
         init {
             savedView.setOnClickListener {
@@ -37,25 +36,14 @@ class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedView
 
     override fun onBindViewHolder(holder: savedViewHolder, position: Int) {
         val current = items[position]
-        holder.workoutNameText.text = current.workoutDb.name
-
-        val roundSummary = StringBuilder()
-        roundSummary.append(current.workoutRounds.map { it.type })
-        Log.e("DEBUG", "roundSummary is $roundSummary")
-
-//        //  TODO is .toString necessary?
-//        holder.roundSummaryText.text = roundSummary
-
-//        val duration : Int = 0
-//        current.workoutRounds.forEach { val tot = it.workDur + it.restDur -> duration += tot }
-
+        holder.workoutNameText.text = current.name
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    internal fun setItems(items: List<WorkoutDbAndRoundsDb>){
+    internal fun setItems(items: List<WorkoutDb>){
         this.items = items
         notifyDataSetChanged()
     }

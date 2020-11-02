@@ -7,7 +7,7 @@ import com.appdavide.roundtimer.data.RoundDb.RoundDb
 @Dao
 interface WorkoutDbDAO{
 
-    @Query("SELECT * from workout")
+    @Query("SELECT workout.* from workout")
     fun getallWorkouts(): LiveData<List<WorkoutDb>>
 
     //  We return a Long (PK type) so we have the inserted record id available
