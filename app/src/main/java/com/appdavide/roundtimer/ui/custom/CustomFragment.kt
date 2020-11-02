@@ -1,6 +1,7 @@
 package com.appdavide.roundtimer.ui.custom
 
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,21 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.models.Round
-import com.appdavide.roundtimer.repository.DataSource
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class CustomFragment : Fragment() {
 
     private lateinit var adat: RoundRecyclerAdapter
@@ -93,7 +84,7 @@ class CustomFragment : Fragment() {
 
         btnAddRound.setOnClickListener{
 
-
+/*
             try {
                 val myFile = File(Environment.getDataDirectory().path + "/textfile.txt")
                 Log.d("TAG", "LOG PROVA FILE 1 CERCO PATH "+Environment.getDataDirectory().path)
@@ -136,7 +127,13 @@ class CustomFragment : Fragment() {
                     10
                 )
             )
-            Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")
+            Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")*/
+
+            Log.d("TAG", "LOG PRIMA DI ADDPOPFRAGMENT")
+            val addPopFragment = AddPopFragment.Companion.newTargetInstance()
+            addPopFragment.setTargetFragment(this, 1)
+            activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> addPopFragment.show(it1, AddPopFragment::class.java.name) }
+
             Log.d("TAG", "LOG PRIMA SAVE DATA")
             saveData()
             Log.d("TAG", "LOG DOPO SAVE DATA")
@@ -147,9 +144,35 @@ class CustomFragment : Fragment() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data2: Intent?) {
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == 1) {
+
+            val workdur = data2!!.getIntExtra("CUSTOM_WORK_DUR", 0)
+            val restdur = data2!!.getIntExtra("CUSTOM_REST_DUR", 0)
+            val cycles = data2!!.getIntExtra("CUSTOM_CYCLES", 0)
+            val duration = data2!!.getIntExtra("CUSTOM_DURATION", 0)
+
+
+            data.add(
+                Round(
+                    "TestProva",
+                    workdur,
+                    restdur,
+                    cycles,
+                    duration
+                )
+            )
+            saveData()
+            adat.notifyDataSetChanged()
+
+        }
+    }
+
     fun saveData(){
         val sharedPref = activity?.getSharedPreferences("shared preferences", Context.MODE_PRIVATE)
-//        val sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
         val editor = sharedPref?.edit()
         val gson = Gson()
         val json = gson.toJson(data)
