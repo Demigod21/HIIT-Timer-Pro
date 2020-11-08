@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -22,6 +23,8 @@ import com.appdavide.roundtimer.service.RoundRecyclerAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CustomFragment : Fragment() {
 
@@ -84,50 +87,6 @@ class CustomFragment : Fragment() {
 
         btnAddRound.setOnClickListener{
 
-/*
-            try {
-                val myFile = File(Environment.getDataDirectory().path + "/textfile.txt")
-                Log.d("TAG", "LOG PROVA FILE 1 CERCO PATH "+Environment.getDataDirectory().path)
-                myFile.createNewFile()
-                val fOut = FileOutputStream(myFile)
-                val myOutWriter = OutputStreamWriter(fOut)
-                myOutWriter.write("replace this with your string")
-                myOutWriter.close()
-                fOut.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-            val pathoffile: String
-            var contents = ""
-
-            val myFile = File(Environment.getDataDirectory().path + "/textfile.txt")
-
-            try {
-                val br = BufferedReader(FileReader(myFile))
-                var c: Int
-                while (br.read() != -1) {
-                    c=br.read()
-                    contents = contents + c.toChar()
-                }
-
-            } catch (e: IOException) {
-                //You'll need to add proper error handling here
-            }
-
-            Log.d("TAG", "LOG PROVA FILE DOPO LETTURA "+contents)
-
-
-            data.add(
-                Round(
-                    "provaaggiunta123",
-                    1,
-                    1,
-                    1,
-                    10
-                )
-            )
-            Log.d("TAG", "LOG DOPO ADD ROUND A LISTA")*/
 
             Log.d("TAG", "LOG PRIMA DI ADDPOPFRAGMENT")
             val addPopFragment = AddPopFragment.Companion.newTargetInstance()
@@ -139,6 +98,30 @@ class CustomFragment : Fragment() {
             Log.d("TAG", "LOG DOPO SAVE DATA")
             adat.notifyDataSetChanged()
         }
+
+
+        val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
+
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val source = viewHolder.adapterPosition
+                val dest = target.adapterPosition
+                Collections.swap(data, source, dest)
+                adat.notifyItemMoved(source, dest)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+
+        touchHelper.attachToRecyclerView(recycler)
+
 
         return vista
 
