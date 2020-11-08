@@ -9,11 +9,10 @@
 
 
     <string-array name="numbers">
-        <item>One</item>
-        <item>Two</item>
-        <item>Three</item>
-        <item>Four</item>
-        <item>Five</item>
+        <item>Preparation</item>
+        <item>Work Round</item>
+        <item>Rest Round</item>
+        <item>Cooldown</item>
     </string-array>
 
 </resources>

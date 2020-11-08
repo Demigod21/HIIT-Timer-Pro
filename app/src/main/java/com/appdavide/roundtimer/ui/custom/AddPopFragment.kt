@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
 
 
@@ -35,7 +37,21 @@ class AddPopFragment : DialogFragment() {
 
         val btnAddPopup = vista.findViewById(R.id.btn_add_popup) as Button
 
+
+        val spinner: Spinner = vista.findViewById(R.id.spinner2)
+        ArrayAdapter.createFromResource(
+            this.context!!,
+            R.array.numbers,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+
         btnAddPopup.setOnClickListener{
+
+            val type = view?.findViewById<Spinner>(R.id.spinner2)?.selectedItem.toString()
 
             val workdur: Int = view?.findViewById<EditText>(R.id.edit_work_dur)?.text.toString().toInt()
             val restdur: Int = view?.findViewById<EditText>(R.id.edit_rest_dur)?.text.toString().toInt()
@@ -45,6 +61,7 @@ class AddPopFragment : DialogFragment() {
             //todo agiungere i vari controlli
 
             var intent = Intent()
+            intent.putExtra("CUSTOM_TYPE", type)
             intent.putExtra("CUSTOM_WORK_DUR", workdur)
             intent.putExtra("CUSTOM_REST_DUR", restdur)
             intent.putExtra("CUSTOM_CYCLES", cycles)

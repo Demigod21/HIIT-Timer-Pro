@@ -150,6 +150,7 @@ class CustomFragment : Fragment() {
         }
         if (requestCode == 1) {
 
+            val type = data2!!.getStringExtra("CUSTOM_TYPE")
             val workdur = data2!!.getIntExtra("CUSTOM_WORK_DUR", 0)
             val restdur = data2!!.getIntExtra("CUSTOM_REST_DUR", 0)
             val cycles = data2!!.getIntExtra("CUSTOM_CYCLES", 0)
@@ -158,7 +159,7 @@ class CustomFragment : Fragment() {
 
             data.add(
                 Round(
-                    "TestProva",
+                    type,
                     workdur,
                     restdur,
                     cycles,
