@@ -79,9 +79,9 @@ class CustomFragment : Fragment() {
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
             val intent = Intent(context, Timer::class.java)
-            intent.putExtra("test", testo)
-            intent.putExtra("test2", array)
-//            intent.putExtra("dataRounds", data)
+//            intent.putExtra("test", testo)
+//            intent.putExtra("test2", array)
+            intent.putExtra("dataRounds", data as Serializable)
             context.startActivity(intent)
         }
 
