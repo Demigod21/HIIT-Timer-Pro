@@ -8,5 +8,12 @@
     <color name="bar_progress_secondary">#1BD896</color>
     <color name="bar_progress_background">#1BD2D8</color>
 
+    <color name="bar_progress_prep">#FFEB3B</color>
+    <color name="bar_progress_work">#4CAF50</color>
+    <color name="bar_progress_rest">#FF9800</color>
+    <color name="bar_progress_rest_set">#FF0000</color>
+    <color name="bar_progress_cooldown">#00BCD4</color>
+
+
 
 </resources>

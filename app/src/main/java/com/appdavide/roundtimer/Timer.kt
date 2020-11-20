@@ -1,5 +1,7 @@
 package com.appdavide.roundtimer
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -146,6 +148,13 @@ class Timer : AppCompatActivity() {
         timerLengthSeconds = durArray[current].toLong()
         txt_timer_type.text = typeArray[current]
         progress_bar.max = timerLengthSeconds.toInt()
+
+        when(typeArray[current]){
+            "Preparation" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
+            "WORK" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_work), PorterDuff.Mode.SRC_IN)
+            "REST" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_rest), PorterDuff.Mode.SRC_IN)
+            "Cooldown" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
+        }
 
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
             override fun onFinish() = onTimerFinished()
