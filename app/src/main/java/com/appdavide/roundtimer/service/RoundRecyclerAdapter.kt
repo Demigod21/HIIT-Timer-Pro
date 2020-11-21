@@ -1,5 +1,8 @@
 package com.appdavide.roundtimer.service
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +52,40 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val round_cycles = itemView.txt_round_cycles
         val round_duration = itemView.txt_round_duration
 
+        val txt_work = itemView.txt_work
+        val txt_rest = itemView.txt_rest
+        val txt_cycles = itemView.txt_cycles
+
+        var cardsss = itemView.card_view
+
+        @SuppressLint("ResourceAsColor")
         fun bind(round: Round){
             round_type.setText(""+round.type)
+            if(round.type == "Preparation" || round.type == "Rest Round" || round.type == "Cooldown"){
+                round_cycles.visibility = View.GONE
+                txt_cycles.visibility = View.GONE
+
+                round_work.visibility = View.GONE
+                txt_work.visibility = View.GONE
+
+                round_rest.visibility = View.GONE
+                txt_rest.visibility = View.GONE
+
+            }
+
+            when(round.type ){
+                "Preparation" -> cardsss.setCardBackgroundColor(Color.parseColor("#FFEB3B"))
+                "Work Round" -> cardsss.setCardBackgroundColor(Color.parseColor("#4CAF50"))
+                "Rest Round" -> cardsss.setCardBackgroundColor(Color.parseColor("#FF9800"))
+                "Cooldown" -> cardsss.setCardBackgroundColor(Color.parseColor("#00BCD4"))
+            }
+
+
             round_work.setText(""+round.workDur)
             round_rest.setText(""+round.restDur)
             round_cycles.setText(""+round.cycles)
             round_duration.setText(""+round.dur)
-
+            //todo aggiungere duration per workround e restround
         }
 
     }

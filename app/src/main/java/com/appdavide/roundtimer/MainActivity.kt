@@ -11,7 +11,7 @@ import com.appdavide.roundtimer.fragment.SimpleFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textMessage: TextView
+    private lateinit var textMessage: TextView //todo cambiare icone del menu
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_saved -> {

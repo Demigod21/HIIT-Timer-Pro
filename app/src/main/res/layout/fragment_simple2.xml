@@ -1,13 +1,190 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragment.SimpleFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.SimpleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Simple"/>
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+
+        <EditText
+                android:id="@+id/input_simpe_prep"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_prep" />
+
+
+        <EditText
+                android:id="@+id/input_simpe_work"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_work"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_work"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_work" />
+
+        <EditText
+                android:id="@+id/input_simpe_rest"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_rest"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_rest"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_rest" />
+
+        <EditText
+                android:id="@+id/input_simpe_cycles"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_cycles"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_cycles"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_cycles" />
+
+        <EditText
+                android:id="@+id/input_simpe_set"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_sets"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_sets"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_sets" />
+
+        <EditText
+                android:id="@+id/input_simpe_restset"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_restset"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_restset"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_restset" />
+
+        <EditText
+                android:id="@+id/input_simpe_cooldown"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_cooldown"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_cooldown"
+                app:layout_constraintTop_toBottomOf="@+id/txt_simple_cooldown" />
+
+
+        <TextView
+                android:id="@+id/txt_simple_prep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Prepare"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+                android:id="@+id/txt_simple_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Work"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_prep" />
+
+        <TextView
+                android:id="@+id/txt_simple_rest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Rest"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_work" />
+
+        <TextView
+                android:id="@+id/txt_simple_cycles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Cycles"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_rest" />
+
+        <TextView
+                android:id="@+id/txt_simple_sets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Sets"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_cycles"
+                tools:layout_editor_absoluteX="151dp" />
+
+        <TextView
+                android:id="@+id/txt_simple_restset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Rest between sets"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_set"
+                tools:layout_editor_absoluteX="151dp" />
+
+        <TextView
+                android:id="@+id/txt_simple_cooldown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Cooldown"
+                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
+                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_restset"
+                tools:layout_editor_absoluteX="162dp" />
+
+        <Button
+                android:id="@+id/btn_simple_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="SAVE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_cooldown" />
+
+        <Button
+                android:id="@+id/btn_simple_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:text="START"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_simple_save" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
+
+

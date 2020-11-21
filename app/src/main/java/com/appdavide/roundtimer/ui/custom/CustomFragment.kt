@@ -54,33 +54,17 @@ class CustomFragment : Fragment() {
         recycler.adapter = adat
 
         Log.d("TAG", "LOG DOPO INIT RECYCLER")
-
-
-
-        //ADD INIT DATA TO RECYCLER
-//        val data = com.appdavide.roundtimer.repository.DataSource.createDataSet()
-//        data = DataSource.list2 //todo guardare questo
-
         adat.submitList(data)
-
-
         Log.d("TAG", "LOG DOPO ADD DATA TO RECYCLER")
 
 
         val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
-
         val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
-
-        val testo = "Passaggio Parametri"
-        val array : Array<String> = Array(2) {"Test2"; "Test3"}
-
 
 
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
             val intent = Intent(context, Timer::class.java)
-//            intent.putExtra("test", testo)
-//            intent.putExtra("test2", array)
             intent.putExtra("dataRounds", data as Serializable)
             context.startActivity(intent)
         }
