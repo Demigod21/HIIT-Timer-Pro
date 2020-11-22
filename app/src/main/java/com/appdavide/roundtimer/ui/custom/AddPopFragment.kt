@@ -4,13 +4,11 @@ package com.appdavide.roundtimer.ui.custom
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 
 
@@ -48,6 +46,33 @@ class AddPopFragment : DialogFragment() {
             spinner.adapter = adapter
         }
 
+        val xxx = view?.findViewById<EditText>(R.id.edit_work_dur)
+
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when(position){
+                    0-> Log.d("TAG", "LOG POSIION 0")
+                    1-> Log.d("TAG", "LOG ID 1")
+                    3-> {
+                        var xs = view?.findViewById<EditText>(R.id.edit_work_dur)
+                        xs?.visibility = View.GONE
+                        xs?.setText("22")
+                    }
+                }
+            }
+
+
+        }
 
         btnAddPopup.setOnClickListener{
 
