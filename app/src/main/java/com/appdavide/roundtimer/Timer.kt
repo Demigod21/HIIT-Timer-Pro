@@ -1,12 +1,22 @@
 package com.appdavide.roundtimer
 
-import android.graphics.Color
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
+import com.appdavide.roundtimer.broadcasts.TimerExpiredReceiver
 import com.appdavide.roundtimer.models.Round
+import com.appdavide.roundtimer.util.NotificationUtil
+import com.appdavide.roundtimer.util.PrefUtil
 import kotlinx.android.synthetic.main.activity_timer.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 class Timer : AppCompatActivity() {
 
@@ -15,6 +25,28 @@ class Timer : AppCompatActivity() {
     private var current: Int = 0
     private var total: Int = 0
 
+    companion object {
+        fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
+            val wakeUpTime = (nowSeconds + secondsRemaining) * 1000
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent)
+            PrefUtil.setAlarmSetTime(nowSeconds, context)
+            return wakeUpTime
+        }
+
+        fun removeAlarm(context: Context){
+            val intent = Intent(context, TimerExpiredReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+            PrefUtil.setAlarmSetTime(0, context)
+        }
+
+        val nowSeconds: Long
+            get() = Calendar.getInstance().timeInMillis / 1000
+    }
 
     enum class TimerState{
         Stopped, Paused, Running
@@ -23,10 +55,9 @@ class Timer : AppCompatActivity() {
     private lateinit var timer: CountDownTimer
     private var timerLengthSeconds: Long = 0
     private var timerState = TimerState.Stopped
-
     private var secondsRemaining: Long = 0
-
-
+    private var firstTime by Delegates.notNull<Boolean>()
+    private var comeBack by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,22 +65,31 @@ class Timer : AppCompatActivity() {
         typeArray = arrayListOf()
         durArray = arrayListOf()
 
-
-
         var data = intent.getSerializableExtra("dataRounds") as List<Round>
 //        total = data.size
         current = 0
+        Log.d("TAG", "LOG ON CREATE")
+        firstTime=true
+        comeBack=false
         organizeTime(data)
+
+        PrefUtil.setDurArray(durArray, this)
+        PrefUtil.setTypeArray(typeArray, this)
+        PrefUtil.setCurrentPosition(current, this)
+        PrefUtil.setTotalPosition(total, this)
+
 
         btn_timer_start.setOnClickListener{
             startTimer()
-            timerState =  TimerState.Running
+//            timerState =  TimerState.Running
             updateButtons()
         }
 
         btn_timer_pause.setOnClickListener {
             timer.cancel()
             timerState = TimerState.Paused
+            PrefUtil.setSecondsRemaining(secondsRemaining, this)
+            Log.d("TAG", "LOG CLICK PAUSE")
             updateButtons()
         }
 
@@ -59,68 +99,86 @@ class Timer : AppCompatActivity() {
         }
 
     }
-/*
     override fun onResume() {
         super.onResume()
-
+        Log.d("TAG", "LOG ON RESUME")
+        comeBack=true
         initTimer()
 
-        //TODO: remove background timer, hide notification
+        removeAlarm(this)
+        NotificationUtil.hideTimerNotification(this)
     }
 
     override fun onPause() {
         super.onPause()
+        Log.d("TAG", "LOG ON PAUSE")
 
         if (timerState == TimerState.Running){
             timer.cancel()
-            //TODO: start background timer and show notification
+            val wakeUpTime = setAlarm(this, nowSeconds, secondsRemaining)
+            val curType = typeArray[current]
+            NotificationUtil.showTimerRunning(this, wakeUpTime, curType)
         }
         else if (timerState == TimerState.Paused){
-            //TODO: show notification
+            NotificationUtil.showTimerPaused(this)
         }
 
         PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, this)
         PrefUtil.setSecondsRemaining(secondsRemaining, this)
         PrefUtil.setTimerState(timerState, this)
-    }*/
+    }
 
-/*    private fun initTimer(){
-//        timerState = PrefUtil.getTimerState(this)
+    private fun initTimer(){
+        Log.d("TAG", "LOG ON INIT TIMER")
 
-        //we don't want to change the length of the timer which is already running
-        //if the length was changed in settings while it was backgrounded
-        if (timerState == TimerState.Stopped)
-            setNewTimerLength()
-        else
+        if(firstTime)
+        {
+            firstTime=false
+            timerLengthSeconds = durArray[0].toLong()
+            secondsRemaining = durArray[0].toLong()
+            updateCountdownUI()
+            txt_timer_type.text = typeArray[0]
+            Log.d("TAG", "LOG ON INIT TIMER PRIMA VOLTA")
+
+        }else{
+            timerState = PrefUtil.getTimerState(this)
+            current = PrefUtil.getCurrentPosition(this)
             setPreviousTimerLength()
 
-*//*
-        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
-            PrefUtil.getSecondsRemaining(this)
-        else
-            timerLengthSeconds
-*//*
+            secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
+                PrefUtil.getSecondsRemaining(this)
+            else
+                timerLengthSeconds
 
-        //TODO: change secondsRemaining according to where the background timer stopped
+            val alarmSetTime = PrefUtil.getAlarmSetTime(this) //qua setto la properti che mi serve per calcolare i secondi mancanti
+            //todo qua devo aggiungere la posizione a cui sono rimasto?
+            if (alarmSetTime > 0)
+                secondsRemaining -= nowSeconds - alarmSetTime //quando riprende, calcola quanti secondi son mancanti
 
-        //resume where we left off
-        if (timerState == TimerState.Running)
-            startTimer()
+            if (secondsRemaining <= 0)
+                onTimerFinished()
+            else if (timerState == TimerState.Running){
+                startTimer()
+            }
+
+
+        }
 
         updateButtons()
         updateCountdownUI()
-    }*/
+    }
 
     private fun onTimerFinished(){
+        Log.d("TAG", "LOG ON TIMER FINISHED")
+
 
         if(current == (total-1)){
             timerState = TimerState.Stopped
             //todo qua modifico e si ritorna a capo, rimettendo tutto da zero
 
             secondsRemaining = 33
+            timerLengthSeconds = 33
             updateCountdownUI()
-
-
 
             //set the length of the timer to be the one set in SettingsActivity
             //if the length was changed when the timer was running
@@ -135,6 +193,7 @@ class Timer : AppCompatActivity() {
             updateCountdownUI()*/
         }else{
             current++
+            PrefUtil.setCurrentPosition(current, this)
             updateCountdownUI()
             startTimer()
             //todo qua devo metter cosa succede nello svolgimento normale
@@ -143,17 +202,27 @@ class Timer : AppCompatActivity() {
     }
 
     private fun startTimer(){
-        timerState = TimerState.Running
-        secondsRemaining = durArray[current].toLong()
+
+        if(comeBack == true){
+            comeBack=false
+        }else{
+            if(timerState == TimerState.Paused){
+                secondsRemaining = PrefUtil.getSecondsRemaining(this)
+            }else{
+                secondsRemaining = durArray[current].toLong()
+            }
+        }
+        Log.d("TAG", "LOG ON START TIMER")
         timerLengthSeconds = durArray[current].toLong()
+        timerState = TimerState.Running
         txt_timer_type.text = typeArray[current]
         progress_bar.max = timerLengthSeconds.toInt()
 
         when(typeArray[current]){
-            "Preparation" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
+            "PREPARATION" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
             "WORK" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_work), PorterDuff.Mode.SRC_IN)
             "REST" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_rest), PorterDuff.Mode.SRC_IN)
-            "Cooldown" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
+            "COOLDOWN" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
         }
 
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
@@ -166,7 +235,7 @@ class Timer : AppCompatActivity() {
         }.start()
     }
 
-/*    private fun setNewTimerLength(){
+    private fun setNewTimerLength(){
         val lengthInMinutes = PrefUtil.getTimerLength(this)
         timerLengthSeconds = (lengthInMinutes * 60L)
         progress_bar.max = timerLengthSeconds.toInt()
@@ -175,7 +244,7 @@ class Timer : AppCompatActivity() {
     private fun setPreviousTimerLength(){
         timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(this)
         progress_bar.max = timerLengthSeconds.toInt()
-    }*/
+    }
 
     private fun updateCountdownUI(){
         val minutesUntilFinished = secondsRemaining / 60
@@ -184,8 +253,6 @@ class Timer : AppCompatActivity() {
         txt_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
         progress_bar.progress = (timerLengthSeconds - secondsRemaining).toInt()
     }
-
-
 
 
     private fun updateButtons(){
@@ -210,19 +277,16 @@ class Timer : AppCompatActivity() {
 
 
     fun organizeTime(data: List<Round>){
-
-
         for (round: Round in data){
             var type = round.type
             when(type){
-                "Preparation" -> organizePreparation(round)
-                "Work Round" -> organizeWorkRound(round)
-                "Rest Round" -> organizeRestRound(round)
-                "Cooldown" -> organizeCooldown(round)
+                "PREPARATION" -> organizePreparation(round)
+                "WORK ROUND" -> organizeWorkRound(round)
+                "REST ROUND" -> organizeRestRound(round)
+                "COOLDOWN" -> organizeCooldown(round)
             }
         }
         total = durArray.size
-
     }
 
     fun organizePreparation(prep: Round){

@@ -31,7 +31,7 @@ class DataSource {
 
             list.add(
                 Round(
-                    "cooldown",
+                    "COOLDOWN",
                     0,
                     0,
                     0,

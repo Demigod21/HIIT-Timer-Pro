@@ -61,7 +61,7 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         @SuppressLint("ResourceAsColor")
         fun bind(round: Round){
             round_type.setText(""+round.type)
-            if(round.type == "Preparation" || round.type == "Rest Round" || round.type == "Cooldown"){
+            if(round.type == "PREPARATION" || round.type == "REST ROUND" || round.type == "COOLDOWN"){
                 round_cycles.visibility = View.GONE
                 txt_cycles.visibility = View.GONE
 
@@ -74,10 +74,10 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             when(round.type ){
-                "Preparation" -> cardsss.setCardBackgroundColor(Color.parseColor("#FFEB3B"))
-                "Work Round" -> cardsss.setCardBackgroundColor(Color.parseColor("#4CAF50"))
-                "Rest Round" -> cardsss.setCardBackgroundColor(Color.parseColor("#FF9800"))
-                "Cooldown" -> cardsss.setCardBackgroundColor(Color.parseColor("#00BCD4"))
+                "PREPARATION" -> cardsss.setCardBackgroundColor(Color.parseColor("#FFEB3B"))
+                "WORK ROUND" -> cardsss.setCardBackgroundColor(Color.parseColor("#4CAF50"))
+                "REST ROUND" -> cardsss.setCardBackgroundColor(Color.parseColor("#FF9800"))
+                "COOLDOWN" -> cardsss.setCardBackgroundColor(Color.parseColor("#00BCD4"))
             }
 
 

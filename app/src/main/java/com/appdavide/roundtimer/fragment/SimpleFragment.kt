@@ -66,15 +66,15 @@ class SimpleFragment : Fragment() {
 
 
     fun organizeData(prep: Int, work: Int, rest: Int, cycles: Int, sets: Int, restSet: Int, cool: Int){
-        data.add(Round("Preparation", 0, 0, 0, prep))
+        data.add(Round("PREPARATION", 0, 0, 0, prep))
 
         for (i in 1..sets){
-            data.add(Round("Work Round", work, rest, cycles, 0))
+            data.add(Round("WORK ROUND", work, rest, cycles, 0))
             if(i!=sets){
-                data.add(Round("Rest Round", 0, 0, 0, restSet))
+                data.add(Round("REST ROUND", 0, 0, 0, restSet))
             }
         }
-        data.add(Round("Cooldown", 0, 0, 0, cool))
+        data.add(Round("COOLDOWN", 0, 0, 0, cool))
 
     }
 
