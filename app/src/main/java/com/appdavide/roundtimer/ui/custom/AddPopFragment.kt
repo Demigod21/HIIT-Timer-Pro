@@ -13,8 +13,14 @@ import androidx.fragment.app.DialogFragment
 
 
 import com.appdavide.roundtimer.R
+import kotlinx.android.synthetic.main.popup_add.*
 
 class AddPopFragment : DialogFragment() {
+
+    lateinit var work_dur : EditText
+    lateinit var rest_dur : EditText
+    lateinit var dur : EditText
+    lateinit var cycles_edit : EditText
 
 
     companion object {
@@ -32,8 +38,12 @@ class AddPopFragment : DialogFragment() {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.popup_add, container, false)
 
-
         val btnAddPopup = vista.findViewById(R.id.btn_add_popup) as Button
+
+        work_dur = vista.findViewById(R.id.edit_work_dur)
+        rest_dur = vista.findViewById(R.id.edit_rest_dur)
+        cycles_edit = vista.findViewById(R.id.edit_cycles)
+        dur = vista.findViewById(R.id.edit_duration)
 
 
         val spinner: Spinner = vista.findViewById(R.id.spinner2)
@@ -45,8 +55,6 @@ class AddPopFragment : DialogFragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
-
-        val xxx = view?.findViewById<EditText>(R.id.edit_work_dur)
 
         spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
 
@@ -61,12 +69,27 @@ class AddPopFragment : DialogFragment() {
                 id: Long
             ) {
                 when(position){
-                    0-> Log.d("TAG", "LOG POSIION 0")
-                    1-> Log.d("TAG", "LOG ID 1")
-                    3-> {
-                        var xs = view?.findViewById<EditText>(R.id.edit_work_dur)
-                        xs?.visibility = View.GONE
-                        xs?.setText("22")
+                    0->{ //preparation
+                        work_dur?.visibility = View.GONE
+                        edit_cycles?.visibility = View.GONE
+                        rest_dur?.visibility = View.GONE
+                    }
+                    1-> { //work round
+                        work_dur?.visibility = View.VISIBLE
+                        edit_cycles?.visibility = View.VISIBLE
+                        rest_dur?.visibility = View.VISIBLE
+                        dur.setOnKeyListener(null) //TODO NIUBBO HERE IT DOESN'T SET ENABLE PORCODDIO
+                    }
+                    2 -> { //rest round
+                        work_dur?.visibility = View.GONE
+                        edit_cycles?.visibility = View.GONE
+                        rest_dur?.visibility = View.GONE
+                    }
+                    3-> { //cool
+                        work_dur?.visibility = View.GONE
+                        edit_cycles?.visibility = View.GONE
+                        rest_dur?.visibility = View.GONE
+
                     }
                 }
             }
@@ -95,6 +118,8 @@ class AddPopFragment : DialogFragment() {
             targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
             dismiss()
         }
+
+        //todo bottone cancel
 
 
         return vista

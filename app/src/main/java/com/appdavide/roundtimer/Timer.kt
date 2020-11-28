@@ -5,18 +5,20 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
-import androidx.appcompat.app.AppCompatActivity
+import android.media.AudioManager
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.appdavide.roundtimer.broadcasts.TimerExpiredReceiver
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.util.NotificationUtil
 import com.appdavide.roundtimer.util.PrefUtil
 import kotlinx.android.synthetic.main.activity_timer.*
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
+
 
 class Timer : AppCompatActivity() {
 
@@ -151,7 +153,6 @@ class Timer : AppCompatActivity() {
                 timerLengthSeconds
 
             val alarmSetTime = PrefUtil.getAlarmSetTime(this) //qua setto la properti che mi serve per calcolare i secondi mancanti
-            //todo qua devo aggiungere la posizione a cui sono rimasto?
             if (alarmSetTime > 0)
                 secondsRemaining -= nowSeconds - alarmSetTime //quando riprende, calcola quanti secondi son mancanti
 
@@ -180,23 +181,11 @@ class Timer : AppCompatActivity() {
             timerLengthSeconds = 33
             updateCountdownUI()
 
-            //set the length of the timer to be the one set in SettingsActivity
-            //if the length was changed when the timer was running
-/*            setNewTimerLength()
-
-            progress_bar.progress = 0
-
-            PrefUtil.setSecondsRemaining(timerLengthSeconds, this)
-            secondsRemaining = timerLengthSeconds
-
-            updateButtons()
-            updateCountdownUI()*/
         }else{
             current++
             PrefUtil.setCurrentPosition(current, this)
             updateCountdownUI()
             startTimer()
-            //todo qua devo metter cosa succede nello svolgimento normale
         }
 
     }
@@ -230,6 +219,11 @@ class Timer : AppCompatActivity() {
 
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
+                if(secondsRemaining < 4){
+//                    val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
+//                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 50)
+//                    todo add music
+                }
                 updateCountdownUI()
             }
         }.start()
