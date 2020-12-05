@@ -27,12 +27,21 @@ class SimpleFragment : Fragment() {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val vista = inflater.inflate(R.layout.fragment_simple2, container, false)
+
+        val simpePrep = vista.findViewById<EditText>(R.id.input_simpe_prep)
+        val simpeWork = vista.findViewById<EditText>(R.id.input_simpe_work)
+        val simpeRest = vista.findViewById<EditText>(R.id.input_simpe_rest)
+        val simpeCycles = vista.findViewById<EditText>(R.id.input_simpe_cycles)
+        val simpeSet = vista.findViewById<EditText>(R.id.input_simpe_set)
+        val simpeRestSet = vista.findViewById<EditText>(R.id.input_simpe_restset)
+        val simpeCool = vista.findViewById<EditText>(R.id.input_simpe_cooldown)
 
         loadData()
 
@@ -42,21 +51,54 @@ class SimpleFragment : Fragment() {
             val context = btnSimpleStart.context
             val intent = Intent(context, Timer::class.java)
 
-            val prep: Int = view?.findViewById<EditText>(R.id.input_simpe_prep)?.text.toString().toInt()
-            val work: Int = view?.findViewById<EditText>(R.id.input_simpe_work)?.text.toString().toInt()
-            val rest: Int = view?.findViewById<EditText>(R.id.input_simpe_rest)?.text.toString().toInt()
-            val cycles: Int = view?.findViewById<EditText>(R.id.input_simpe_cycles)?.text.toString().toInt()
-            val sets: Int = view?.findViewById<EditText>(R.id.input_simpe_set)?.text.toString().toInt()
-            val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
-            val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
+            if(simpePrep.length()== 0 ||
+                simpeWork.length()== 0 ||
+                simpeRest.length()== 0 ||
+                simpeCycles.length()== 0 ||
+                simpeSet.length()== 0 ||
+                simpeRestSet.length()== 0 ||
+                simpeCool.length()== 0 ){
 
-            saveData()
+                if(simpePrep.length()== 0){
+                    simpePrep.error = "Please insert preparation time"
+                }
+                if(simpeWork.length()== 0){
+                    simpeWork.error = "Please insert work time"
+                }
+                if(simpeRest.length()== 0){
+                    simpeRest.error = "Please insert rest time"
+                }
+                if(simpeCycles.length()== 0){
+                    simpeCycles.error = "Please insert cycles"
+                }
+                if(simpeSet.length()== 0){
+                    simpeSet.error = "Please insert nr of sets"
+                }
+                if(simpeRestSet.length()== 0){
+                    simpeRestSet.error = "Please insert rest between sets"
+                }
+                if(simpeCool.length()== 0){
+                    simpeCool.error = "Please insert cooldown time"
+                }
 
-            //todo controlli su sta cazzo di robaaaaaaaa
+            }else{
 
-            organizeData(prep, work, rest, cycles, sets, restSet, cool)
-            intent.putExtra("dataRounds", data as Serializable)
-            context.startActivity(intent)
+                val prep: Int = view?.findViewById<EditText>(R.id.input_simpe_prep)?.text.toString().toInt()
+                val work: Int = view?.findViewById<EditText>(R.id.input_simpe_work)?.text.toString().toInt()
+                val rest: Int = view?.findViewById<EditText>(R.id.input_simpe_rest)?.text.toString().toInt()
+                val cycles: Int = view?.findViewById<EditText>(R.id.input_simpe_cycles)?.text.toString().toInt()
+                val sets: Int = view?.findViewById<EditText>(R.id.input_simpe_set)?.text.toString().toInt()
+                val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
+                val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
+
+                saveData()
+
+                organizeData(prep, work, rest, cycles, sets, restSet, cool)
+                intent.removeExtra("dataRounds")
+                intent.putExtra("dataRounds", data as Serializable)
+                context.startActivity(intent)
+            }
+
         }
 
         return vista

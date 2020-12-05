@@ -15,5 +15,17 @@
     <color name="bar_progress_cooldown">#00BCD4</color>
 
 
+    <color name="bar_und_prep">#FFE79E</color>
+    <color name="bar_und_work">#84B086</color>
+    <color name="bar_und_rest">#FFD69A</color>
+    <color name="bar_und_rest_set">#FF8B8B</color>
+    <color name="bar_und_cooldown">#6FC0CA</color>
+
+
+
+
+
+
+
 
 </resources>

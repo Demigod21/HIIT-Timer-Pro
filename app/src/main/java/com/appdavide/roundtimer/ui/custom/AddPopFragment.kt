@@ -39,6 +39,7 @@ class AddPopFragment : DialogFragment() {
         val vista = inflater.inflate(R.layout.popup_add, container, false)
 
         val btnAddPopup = vista.findViewById(R.id.btn_add_popup) as Button
+        val btnCancelPopup = vista.findViewById(R.id.btn_cancel_popup) as Button
 
         work_dur = vista.findViewById(R.id.edit_work_dur)
         rest_dur = vista.findViewById(R.id.edit_rest_dur)
@@ -78,7 +79,7 @@ class AddPopFragment : DialogFragment() {
                         work_dur?.visibility = View.VISIBLE
                         edit_cycles?.visibility = View.VISIBLE
                         rest_dur?.visibility = View.VISIBLE
-                        dur.setOnKeyListener(null) //TODO NIUBBO HERE IT DOESN'T SET ENABLE PORCODDIO
+                        dur.isEnabled = false
                     }
                     2 -> { //rest round
                         work_dur?.visibility = View.GONE
@@ -100,15 +101,85 @@ class AddPopFragment : DialogFragment() {
         btnAddPopup.setOnClickListener{
 
             val type = view?.findViewById<Spinner>(R.id.spinner2)?.selectedItem.toString()
+            var intent = Intent()
 
-            val workdur: Int = view?.findViewById<EditText>(R.id.edit_work_dur)?.text.toString().toInt()
+            when (type){
+                "PREPARATION"->{
+                    dur.error = null //todo non setta error a null
+                    if (dur.length() == 0){
+                        dur.error = "Please insert duration"
+                    }else{
+                        val duration: Int = view?.findViewById<EditText>(R.id.edit_duration)?.text.toString().toInt()
+
+                        intent.putExtra("CUSTOM_TYPE", type)
+                        intent.putExtra("CUSTOM_DURATION", duration)
+
+                        targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
+                        dismiss()
+                    }
+                }
+                "WORK ROUND" ->{
+                    dur.error = null
+                    if (work_dur.length() == 0 || rest_dur.length() == 0 || cycles_edit.length() == 0){
+                        if(work_dur.length() == 0 ){
+                            work_dur.error = "Please insert work duration"
+                        }
+                        if(rest_dur.length() == 0 ){
+                            rest_dur.error = "Please insert rest duration"
+                        }
+                        if(cycles_edit.length() == 0 ){
+                            cycles_edit.error = "Please insert cycles"
+                        }
+                    }else{
+                        val workdur: Int = view?.findViewById<EditText>(R.id.edit_work_dur)?.text.toString().toInt()
+                        val restdur: Int = view?.findViewById<EditText>(R.id.edit_rest_dur)?.text.toString().toInt()
+                        val cycles: Int = view?.findViewById<EditText>(R.id.edit_cycles)?.text.toString().toInt()
+
+                        intent.putExtra("CUSTOM_TYPE", type)
+                        intent.putExtra("CUSTOM_WORK_DUR", workdur)
+                        intent.putExtra("CUSTOM_REST_DUR", restdur)
+                        intent.putExtra("CUSTOM_CYCLES", cycles)
+
+                        targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
+                        dismiss()
+                    }
+
+
+                }
+                "REST ROUND" -> {
+                    dur.error = null
+                    if (dur.length() == 0){
+                        dur.error = "Please insert duration"
+                    }else{
+                        val duration: Int = view?.findViewById<EditText>(R.id.edit_duration)?.text.toString().toInt()
+                        intent.putExtra("CUSTOM_TYPE", type)
+                        intent.putExtra("CUSTOM_DURATION", duration)
+                        targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
+                        dismiss()
+                    }
+                }
+                "COOLDOWN" -> {
+                    dur.error = null
+                    if (dur.length() == 0){
+                        dur.error = "Please insert duration"
+                    }else{
+                        val duration: Int = view?.findViewById<EditText>(R.id.edit_duration)?.text.toString().toInt()
+                        intent.putExtra("CUSTOM_TYPE", type)
+                        intent.putExtra("CUSTOM_DURATION", duration)
+                        targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
+                        dismiss()
+                    }
+                }
+            }
+
+/*            val workdur: Int = view?.findViewById<EditText>(R.id.edit_work_dur)?.text.toString().toInt()
             val restdur: Int = view?.findViewById<EditText>(R.id.edit_rest_dur)?.text.toString().toInt()
             val cycles: Int = view?.findViewById<EditText>(R.id.edit_cycles)?.text.toString().toInt()
             val duration: Int = view?.findViewById<EditText>(R.id.edit_duration)?.text.toString().toInt()
 
+
             //todo agiungere i vari controlli
 
-            var intent = Intent()
             intent.putExtra("CUSTOM_TYPE", type)
             intent.putExtra("CUSTOM_WORK_DUR", workdur)
             intent.putExtra("CUSTOM_REST_DUR", restdur)
@@ -116,10 +187,14 @@ class AddPopFragment : DialogFragment() {
             intent.putExtra("CUSTOM_DURATION", duration)
 
             targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
+            dismiss()*/
+        }
+
+        btnCancelPopup.setOnClickListener{
             dismiss()
         }
 
-        //todo bottone cancel
+
 
 
         return vista
