@@ -6,14 +6,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Timer">
+
     <TextView
             android:id="@+id/txt_countdown"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
-            android:text="10:00" android:textSize="70sp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="10:00"
+            android:textSize="70sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.MaterialProgressBar.ProgressBar"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:background="@android:color/transparent"
+
+            app:layout_constraintBottom_toBottomOf="@+id/txt_countdown"
+
+            app:layout_constraintEnd_toEndOf="@+id/txt_countdown"
+            app:layout_constraintStart_toStartOf="@+id/txt_countdown"
+            app:layout_constraintTop_toTopOf="@+id/txt_countdown"
+            app:mpb_progressBackgroundTint="@color/bar_progress_background"
+            app:mpb_progressTint="@color/bar_progress" app:mpb_secondaryProgressTint="@color/bar_progress_secondary"/>
 
     <TextView
             android:id="@+id/txt_timer_type"
@@ -27,19 +48,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/Widget.MaterialProgressBar.ProgressBar"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-
-            app:layout_constraintBottom_toBottomOf="@+id/txt_countdown"
-
-            app:layout_constraintEnd_toEndOf="@+id/txt_countdown"
-            app:layout_constraintStart_toStartOf="@+id/txt_countdown"
-            app:layout_constraintTop_toTopOf="@+id/txt_countdown"
-            app:mpb_progressBackgroundTint="@color/bar_progress_background"
-            app:mpb_progressTint="@color/bar_progress" app:mpb_secondaryProgressTint="@color/bar_progress_secondary"/>
     <Button
             android:id="@+id/btn_timer_start"
             android:layout_width="wrap_content"

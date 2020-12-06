@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name ="android:textColor">#B2B2B2</item>
+        <item name ="android:background">#2F2F2F</item>
+        <item name ="android:colorControlNormal">#B2B2B2</item>
+
     </style>
 
 

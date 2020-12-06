@@ -14,25 +14,29 @@
 
         <EditText
                 android:id="@+id/input_simpe_prep"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="@+id/txt_simple_prep"
-                app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_simple_prep" />
 
 
         <EditText
                 android:id="@+id/input_simpe_work"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="64dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="@+id/txt_simple_work"
-                app:layout_constraintStart_toStartOf="@+id/txt_simple_work"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_simple_work" />
 
         <EditText
@@ -178,9 +182,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:text="START"
+                android:background="@drawable/ic_baseline_play_circle_outline_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btn_simple_save" />
+
+        <TextView
+                android:id="@+id/txt_simple_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintEnd_toStartOf="@+id/btn_simple_start"
+                app:layout_constraintStart_toEndOf="@+id/btn_simple_save"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_cooldown" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_baseline_add_24"
+                app:backgroundTint="#333333"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="@+id/input_simpe_prep"
+                app:layout_constraintEnd_toEndOf="@+id/input_simpe_prep"
+                app:maxImageSize="36dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

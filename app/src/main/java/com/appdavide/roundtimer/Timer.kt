@@ -208,10 +208,26 @@ class Timer : AppCompatActivity() {
         progress_bar.max = timerLengthSeconds.toInt()
 
         when(typeArray[current]){
-            "PREPARATION" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
-            "WORK" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_work), PorterDuff.Mode.SRC_IN)
-            "REST" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_rest), PorterDuff.Mode.SRC_IN)
-            "COOLDOWN" -> progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
+            "PREPARATION" -> {
+                progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
+                txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_prep))
+                txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_prep))
+            }
+            "WORK" -> {
+                progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_work), PorterDuff.Mode.SRC_IN)
+                txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_work))
+                txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_work))
+            }
+            "REST" -> {
+                progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_rest), PorterDuff.Mode.SRC_IN)
+                txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_rest))
+                txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_rest))
+            }
+            "COOLDOWN" -> {
+                progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
+                txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_cooldown))
+                txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_cooldown))
+            }
         }
 
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {

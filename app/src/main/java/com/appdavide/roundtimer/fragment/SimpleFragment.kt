@@ -11,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.models.Round
+import com.appdavide.roundtimer.ui.custom.AddPopFragment
+import com.appdavide.roundtimer.ui.custom.SaveCustomPopFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
@@ -24,6 +27,7 @@ class SimpleFragment : Fragment() {
 
     private lateinit var data: ArrayList<Round>
     private var duration: Int = 0
+    private var saveName: String = ""
 
 
 
@@ -43,9 +47,21 @@ class SimpleFragment : Fragment() {
         val simpeRestSet = vista.findViewById<EditText>(R.id.input_simpe_restset)
         val simpeCool = vista.findViewById<EditText>(R.id.input_simpe_cooldown)
 
-        loadData()
+        data = ArrayList<Round>()
+
+//        loadData() //todo modificare save data e load data per salvare edit text
 
         val btnSimpleStart = vista.findViewById(R.id.btn_simple_start) as Button
+        val btnSimpleSave  = vista.findViewById(R.id.btn_simple_save) as Button
+
+        val txt_save = vista.findViewById<TextView>(R.id.txt_simple_name)
+
+
+            btnSimpleSave.setOnClickListener {
+            val saveCustomPopFragment = SaveCustomPopFragment.Companion.newTargetInstance()
+            saveCustomPopFragment.setTargetFragment(this, 1)
+            activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> saveCustomPopFragment.show(it1, SaveCustomPopFragment::class.java.name) }
+        }
 
         btnSimpleStart.setOnClickListener{
             val context = btnSimpleStart.context
@@ -91,7 +107,7 @@ class SimpleFragment : Fragment() {
                 val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
                 val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
 
-                saveData()
+//                saveData() //todo modificare save data e load data per salvare edit text
 
                 organizeData(prep, work, rest, cycles, sets, restSet, cool)
                 intent.removeExtra("dataRounds")
@@ -102,6 +118,21 @@ class SimpleFragment : Fragment() {
         }
 
         return vista
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data2: Intent?) {
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+        if (requestCode == 1) {
+
+            val saveName3 = data2!!.getStringExtra("SAVE_POP_NAME")
+            saveName = saveName3
+            val txt_save2 = view?.findViewById<TextView>(R.id.txt_simple_name)
+            txt_save2?.setText(saveName)
+            //todo salvataggio del workout
+
+        }
     }
 
 
