@@ -12,14 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.Timer
+import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
+import com.appdavide.roundtimer.ui.saved.SavedFragmentViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
@@ -28,6 +31,7 @@ import kotlin.collections.ArrayList
 
 class CustomFragment : Fragment() {
 
+    private lateinit var customRoundViewModel: CustomRoundViewModel
     private lateinit var adat: RoundRecyclerAdapter
 
     private lateinit var data: ArrayList<Round>
@@ -38,6 +42,8 @@ class CustomFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.fragment_custom, container, false)
+
+        customRoundViewModel = ViewModelProvider(this).get(CustomRoundViewModel::class.java)
 
         Log.d("TAG", "LOG PRIMA LOAD DATA")
         loadData()
@@ -60,6 +66,7 @@ class CustomFragment : Fragment() {
 
         val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
         val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
+        val btnSaveWorkout = vista.findViewById(R.id.btn_custom_save) as Button
 
 
         btnStartTimer.setOnClickListener{
@@ -83,6 +90,12 @@ class CustomFragment : Fragment() {
             Log.d("TAG", "LOG DOPO SAVE DATA")
             adat.notifyDataSetChanged()
         }
+
+        btnSaveWorkout.setOnClickListener{
+            storeWorkoutToSave()
+        }
+
+
 
 
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
@@ -138,6 +151,23 @@ class CustomFragment : Fragment() {
             adat.notifyDataSetChanged()
 
         }
+    }
+
+    //  fugly spaghetti code
+    fun storeWorkoutToSave(){
+        val workoutSavedDefaultName = "Saved Workout"
+
+        //  grab all elements in data arraylist, should process for safety, remove garbage and and move with filterNotNull
+        var workoutRounds = ArrayList<Round>()
+        workoutRounds.addAll(data)
+
+        //  create temporary workout object to fill with data and send away to saving function
+        val workoutToSave = WorkoutDb(workoutSavedDefaultName)
+
+        //  send workout object and rounds list to viewmodel to save
+        customRoundViewModel.saveWorkoutAndRounds(workoutToSave, workoutRounds)
+
+
     }
 
     fun saveData(){
