@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.models.Round
+import kotlinx.android.synthetic.main.activity_timer.*
 import kotlinx.android.synthetic.main.layout_round_list_item.view.*
 
 class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -55,6 +56,7 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val txt_work = itemView.txt_work
         val txt_rest = itemView.txt_rest
         val txt_cycles = itemView.txt_cycles
+        var txt_dur = itemView.txt_duration
 
         var cardsss = itemView.card_view
 
@@ -74,10 +76,54 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             when(round.type ){
-                "PREPARATION" -> cardsss.setCardBackgroundColor(Color.parseColor("#FFEB3B"))
-                "WORK ROUND" -> cardsss.setCardBackgroundColor(Color.parseColor("#4CAF50"))
-                "REST ROUND" -> cardsss.setCardBackgroundColor(Color.parseColor("#FF9800"))
-                "COOLDOWN" -> cardsss.setCardBackgroundColor(Color.parseColor("#00BCD4"))
+                "PREPARATION" -> {
+                    cardsss.setCardBackgroundColor(Color.parseColor("#FFEB3B"))
+/*                    round_type.setTextColor(Color.parseColor("#FFEB3B"))
+                    round_work.setTextColor(Color.parseColor("#FFEB3B"))
+                    round_rest.setTextColor(Color.parseColor("#FFEB3B"))
+                    round_cycles.setTextColor(Color.parseColor("#FFEB3B"))
+                    round_duration.setTextColor(Color.parseColor("#FFEB3B"))
+                    txt_work.setTextColor(Color.parseColor("#FFEB3B"))
+                    txt_rest.setTextColor(Color.parseColor("#FFEB3B"))
+                    txt_cycles.setTextColor(Color.parseColor("#FFEB3B"))
+                    txt_dur.setTextColor(Color.parseColor("#FFEB3B"))*/
+                }
+                "WORK ROUND" -> {
+                    cardsss.setCardBackgroundColor(Color.parseColor("#4CAF50"))
+/*                    round_type.setTextColor(Color.parseColor("#4CAF50"))
+                    round_work.setTextColor(Color.parseColor("#4CAF50"))
+                    round_rest.setTextColor(Color.parseColor("#4CAF50"))
+                    round_cycles.setTextColor(Color.parseColor("#4CAF50"))
+                    round_duration.setTextColor(Color.parseColor("#4CAF50"))
+                    txt_work.setTextColor(Color.parseColor("#4CAF50"))
+                    txt_rest.setTextColor(Color.parseColor("#4CAF50"))
+                    txt_cycles.setTextColor(Color.parseColor("#4CAF50"))
+                    txt_dur.setTextColor(Color.parseColor("#4CAF50"))*/
+                }
+                "REST ROUND" -> { //TODO GESTIRE COLORI
+                    cardsss.setCardBackgroundColor(Color.parseColor("#FF9800"))
+/*                    round_type.setTextColor(R.color.bar_progress_rest)
+                    round_work.setTextColor(R.color.bar_progress_rest)
+                    round_rest.setTextColor(R.color.bar_progress_rest)
+                    round_cycles.setTextColor(R.color.bar_progress_rest)
+                    round_duration.setTextColor(R.color.bar_progress_rest)
+                    txt_work.setTextColor(R.color.bar_progress_rest)
+                    txt_rest.setTextColor(R.color.bar_progress_rest)
+                    txt_cycles.setTextColor(R.color.bar_progress_rest)
+                    txt_dur.setTextColor(R.color.bar_progress_rest)*/
+                }
+                "COOLDOWN" -> {
+                    cardsss.setCardBackgroundColor(Color.parseColor("#00BCD4"))
+/*                    round_type.setTextColor(Color.parseColor("#00BCD4"))
+                    round_work.setTextColor(Color.parseColor("#00BCD4"))
+                    round_rest.setTextColor(Color.parseColor("#00BCD4"))
+                    round_cycles.setTextColor(Color.parseColor("#00BCD4"))
+                    round_duration.setTextColor(Color.parseColor("#00BCD4"))
+                    txt_work.setTextColor(Color.parseColor("#00BCD4"))
+                    txt_rest.setTextColor(Color.parseColor("#00BCD4"))
+                    txt_cycles.setTextColor(Color.parseColor("#00BCD4"))
+                    txt_dur.setTextColor(Color.parseColor("#00BCD4"))*/
+                }
             }
 
 

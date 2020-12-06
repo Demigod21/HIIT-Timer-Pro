@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
 
     <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -13,13 +13,13 @@
             android:layout_height="match_parent"
             app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="5dp"
-            app:contentPadding="15dp">
+            app:contentPadding="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/vs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
+                android:background="@drawable/layout_bg"
                 android:visibility="visible"
                 tools:visibility="visible">
 
@@ -28,10 +28,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
                     android:background="@android:color/transparent"
                     android:text="TextView"
-                    android:textColor="@color/text_color_dark_grey"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -41,20 +42,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:text="TextView"
-                    android:textColor="@color/text_color_dark_grey"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_round_duration" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_round_type" />
 
             <TextView
                     android:id="@+id/txt_round_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:text="TextView"
-                    android:textColor="@color/text_color_dark_grey"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_round_work" />
 
@@ -63,9 +64,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:text="TextView"
-                    android:textColor="@color/text_color_dark_grey"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_cycles"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_round_rest" />
 
@@ -76,9 +78,8 @@
                     android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
                     android:text="WORK"
-                    android:textColor="@color/text_color_dark_grey"
                     app:layout_constraintStart_toStartOf="@+id/txt_duration"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_duration" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_round_type" />
 
             <TextView
                     android:id="@+id/txt_cycles"
@@ -87,7 +88,6 @@
                     android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
                     android:text="CYCLES"
-                    android:textColor="@color/text_color_dark_grey"
                     app:layout_constraintStart_toStartOf="@+id/txt_rest"
                     app:layout_constraintTop_toBottomOf="@+id/txt_rest" />
 
@@ -95,23 +95,26 @@
                     android:id="@+id/txt_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:text="DURATION"
-                    android:textColor="@color/text_color_dark_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_round_type" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_cycles" />
 
             <TextView
                     android:id="@+id/txt_round_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@android:color/transparent"
                     android:text="TextView"
-                    android:textColor="@color/text_color_dark_grey"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_duration"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_round_type" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_round_cycles" />
 
             <TextView
                     android:id="@+id/txt_rest"
@@ -120,7 +123,6 @@
                     android:layout_marginTop="8dp"
                     android:background="@android:color/transparent"
                     android:text="REST"
-                    android:textColor="@color/text_color_dark_grey"
                     app:layout_constraintStart_toStartOf="@+id/txt_work"
                     app:layout_constraintTop_toBottomOf="@+id/txt_work" />
 

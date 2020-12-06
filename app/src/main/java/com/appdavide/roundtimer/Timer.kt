@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.media.AudioManager
 import android.media.ToneGenerator
@@ -99,6 +100,26 @@ class Timer : AppCompatActivity() {
             timer.cancel()
             onTimerFinished()
         }
+
+        fab_timer_play.setOnClickListener {
+            startTimer()
+            updateButtons()
+        }
+
+        fab_timer_pause.setOnClickListener {
+            timer.cancel()
+            timerState = TimerState.Paused
+            PrefUtil.setSecondsRemaining(secondsRemaining, this)
+            Log.d("TAG", "LOG CLICK PAUSE")
+            updateButtons()
+        }
+
+
+        fab_timer_stop.setOnClickListener {
+            timer.cancel()
+            onTimerFinished()
+        }
+
 
     }
     override fun onResume() {
@@ -212,21 +233,36 @@ class Timer : AppCompatActivity() {
                 progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_prep), PorterDuff.Mode.SRC_IN)
                 txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_prep))
                 txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_prep))
+                fab_timer_play.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_prep)))
+                fab_timer_pause.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_prep)))
+                fab_timer_stop.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_prep)))
+
             }
             "WORK" -> {
                 progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_work), PorterDuff.Mode.SRC_IN)
                 txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_work))
                 txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_work))
+                fab_timer_play.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_work)))
+                fab_timer_pause.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_work)))
+                fab_timer_stop.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_work)))
+
             }
             "REST" -> {
                 progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_rest), PorterDuff.Mode.SRC_IN)
                 txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_rest))
                 txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_rest))
+                fab_timer_play.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_rest)))
+                fab_timer_pause.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_rest)))
+                fab_timer_stop.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_rest)))
+
             }
             "COOLDOWN" -> {
                 progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_cooldown), PorterDuff.Mode.SRC_IN)
                 txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_cooldown))
                 txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_cooldown))
+                fab_timer_play.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_cooldown)))
+                fab_timer_pause.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_cooldown)))
+                fab_timer_stop.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_cooldown)))
             }
         }
 
@@ -271,16 +307,28 @@ class Timer : AppCompatActivity() {
                 btn_timer_start.isEnabled = false
                 btn_timer_pause.isEnabled = true
                 btn_timer_stop.isEnabled = true
+
+                fab_timer_play.isEnabled = false
+                fab_timer_pause.isEnabled = true
+                fab_timer_stop.isEnabled = true
             }
             TimerState.Stopped -> {
                 btn_timer_start.isEnabled = true
                 btn_timer_pause.isEnabled = false
                 btn_timer_stop.isEnabled = false
+
+                fab_timer_play.isEnabled = true
+                fab_timer_pause.isEnabled = false
+                fab_timer_stop.isEnabled = false
             }
             TimerState.Paused -> {
                 btn_timer_start.isEnabled = true
                 btn_timer_pause.isEnabled = false
                 btn_timer_stop.isEnabled = true
+
+                fab_timer_play.isEnabled = true
+                fab_timer_pause.isEnabled = false
+                fab_timer_stop.isEnabled = true
             }
         }
     }

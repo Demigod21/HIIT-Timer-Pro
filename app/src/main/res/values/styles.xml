@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#B2B2B2</item>
+        <item name="colorPrimaryDark">#B2B2B2</item>
+        <item name="colorAccent">#FFFFFF</item>
         <item name ="android:textColor">#B2B2B2</item>
         <item name ="android:background">#2F2F2F</item>
         <item name ="android:colorControlNormal">#B2B2B2</item>
