@@ -36,6 +36,8 @@ class CustomFragment : Fragment() {
 
     private lateinit var data: ArrayList<Round>
 
+    private var saveNameC: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,13 +47,8 @@ class CustomFragment : Fragment() {
 
         customRoundViewModel = ViewModelProvider(this).get(CustomRoundViewModel::class.java)
 
-        Log.d("TAG", "LOG PRIMA LOAD DATA")
         loadData()
-        Log.d("TAG", "LOG DOPO LOAD DATA")
-
-        Log.d("TAG", "LOG PRIMA DEL FIND BY ID")
         val recycler = vista.findViewById(R.id.listaCustom) as RecyclerView
-        Log.d("TAG", "LOG DOPO DEL FIND BY ID")
 
 
         //INIT RECYCLER VIEW
@@ -59,15 +56,11 @@ class CustomFragment : Fragment() {
         adat = RoundRecyclerAdapter()
         recycler.adapter = adat
 
-        Log.d("TAG", "LOG DOPO INIT RECYCLER")
         adat.submitList(data)
-        Log.d("TAG", "LOG DOPO ADD DATA TO RECYCLER")
-
 
         val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
         val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
         val btnSaveWorkout = vista.findViewById(R.id.btn_custom_save) as Button
-
 
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
@@ -78,24 +71,18 @@ class CustomFragment : Fragment() {
         }
 
         btnAddRound.setOnClickListener{
-
-
-            Log.d("TAG", "LOG PRIMA DI ADDPOPFRAGMENT")
             val addPopFragment = AddPopFragment.Companion.newTargetInstance()
             addPopFragment.setTargetFragment(this, 1)
             activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> addPopFragment.show(it1, AddPopFragment::class.java.name) }
-
-            Log.d("TAG", "LOG PRIMA SAVE DATA")
             saveData()
-            Log.d("TAG", "LOG DOPO SAVE DATA")
             adat.notifyDataSetChanged()
         }
 
         btnSaveWorkout.setOnClickListener{
-            storeWorkoutToSave()
+            val savePopCustomFragment = SavePopCustomFragment.Companion.newTargetInstance()
+            savePopCustomFragment.setTargetFragment(this, 2)
+            activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> savePopCustomFragment.show(it1, SavePopCustomFragment::class.java.name) }
         }
-
-
 
 
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
@@ -116,13 +103,19 @@ class CustomFragment : Fragment() {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
-
-
         touchHelper.attachToRecyclerView(recycler)
 
-
         return vista
+    }
 
+    override fun onPause() {
+        super.onPause()
+        saveData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        saveData()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data2: Intent?) {
@@ -149,20 +142,23 @@ class CustomFragment : Fragment() {
             )
             saveData()
             adat.notifyDataSetChanged()
-
+        } else if (requestCode == 2 ){
+            val saveName2 = data2!!.getStringExtra("SAVE_POP_CUSTOM_NAME")
+            saveNameC = saveName2
+            storeWorkoutToSave()
         }
+
     }
 
     //  fugly spaghetti code
     fun storeWorkoutToSave(){
-        val workoutSavedDefaultName = "Saved Workout"
 
         //  grab all elements in data arraylist, should process for safety, remove garbage and and move with filterNotNull
         var workoutRounds = ArrayList<Round>()
         workoutRounds.addAll(data)
 
         //  create temporary workout object to fill with data and send away to saving function
-        val workoutToSave = WorkoutDb(workoutSavedDefaultName)
+        val workoutToSave = WorkoutDb(saveNameC)
 
         //  send workout object and rounds list to viewmodel to save
         customRoundViewModel.saveWorkoutAndRounds(workoutToSave, workoutRounds)

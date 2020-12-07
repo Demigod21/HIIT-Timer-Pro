@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.models.Round
@@ -13,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_timer.*
 import kotlinx.android.synthetic.main.layout_round_list_item.view.*
 
 class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var items: List<Round> = ArrayList()
+    public lateinit var delImg : ImageView
+    private var items: ArrayList<Round> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -31,6 +33,13 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 holder.bind(items.get(position))
             }
         }
+
+        delImg = holder.itemView.img_delete
+
+        delImg.setOnClickListener {
+            items.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
 
@@ -38,7 +47,7 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return items.size
     }
 
-    fun submitList(roundList : List<Round>){
+    fun submitList(roundList : ArrayList<Round>){
         items=roundList
     }
 
@@ -59,6 +68,10 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var txt_dur = itemView.txt_duration
 
         var cardsss = itemView.card_view
+
+        var img = itemView.img_delete
+
+
 
         @SuppressLint("ResourceAsColor")
         fun bind(round: Round){
@@ -131,7 +144,7 @@ class RoundRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             round_rest.setText(""+round.restDur)
             round_cycles.setText(""+round.cycles)
             round_duration.setText(""+round.dur)
-            //todo aggiungere duration per workround e restround
+//todo aggiungere duration per workround e restround
         }
 
     }

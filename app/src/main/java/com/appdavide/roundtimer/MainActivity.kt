@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.appdavide.roundtimer.ui.custom.CustomFragment
 import com.appdavide.roundtimer.ui.saved.SavedFragment
-import com.appdavide.roundtimer.fragment.SimpleFragment
+import com.appdavide.roundtimer.ui.simple.SimpleFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_simple -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout, SimpleFragment())
+                    .replace(R.id.frameLayout,
+                        SimpleFragment()
+                    )
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit()
                 return@OnNavigationItemSelectedListener true

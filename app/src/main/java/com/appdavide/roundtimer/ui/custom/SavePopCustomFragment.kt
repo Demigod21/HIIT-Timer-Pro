@@ -3,22 +3,21 @@ package com.appdavide.roundtimer.ui.custom
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import com.appdavide.roundtimer.R
-import kotlinx.android.synthetic.main.popup_add.*
 
-class SaveCustomPopFragment : DialogFragment() {
+class SavePopCustomFragment : DialogFragment() {
 
 
 
     companion object {
-        fun newTargetInstance(): SaveCustomPopFragment {
-            val fragment = SaveCustomPopFragment()
+        fun newTargetInstance(): SavePopCustomFragment {
+            val fragment = SavePopCustomFragment()
             return fragment
         }
     }
@@ -41,8 +40,8 @@ class SaveCustomPopFragment : DialogFragment() {
             }else{
                 var intent = Intent()
                 var saveName:String = edit_name_pop.text.toString()
-                intent.putExtra("SAVE_POP_NAME", saveName)
-                targetFragment!!.onActivityResult(3, Activity.RESULT_OK, intent) //todo cambiare questo request code
+                intent.putExtra("SAVE_POP_CUSTOM_NAME", saveName)
+                targetFragment!!.onActivityResult(2, Activity.RESULT_OK, intent)
                 dismiss()
             }
 

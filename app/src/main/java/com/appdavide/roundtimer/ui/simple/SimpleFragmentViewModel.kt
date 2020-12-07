@@ -1,4 +1,4 @@
-package com.appdavide.roundtimer.ui.custom
+package com.appdavide.roundtimer.ui.simple
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,7 +11,7 @@ import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.models.Round
 import kotlinx.coroutines.runBlocking
 
-class CustomRoundViewModel (application: Application) : AndroidViewModel(application) {
+class SimpleFragmentViewModel (application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
 
@@ -20,7 +20,6 @@ class CustomRoundViewModel (application: Application) : AndroidViewModel(applica
         val roundDAO = RoundtimerRoomDatabase.getDatabase(application, viewModelScope).RoundDbDAO()
 
         repository = Repository(workoutDAO, roundDAO)
-
     }
 
     fun saveWorkoutAndRounds(workout: WorkoutDb, roundsList: ArrayList<Round>){
