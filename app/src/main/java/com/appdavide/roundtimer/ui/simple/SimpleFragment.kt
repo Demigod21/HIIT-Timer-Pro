@@ -60,25 +60,56 @@ class SimpleFragment : Fragment() {
         val btnSimpleStart = vista.findViewById(R.id.btn_simple_start) as Button
         val btnSimpleSave  = vista.findViewById(R.id.btn_simple_save) as Button
 
-        val txt_save = vista.findViewById<TextView>(R.id.txt_simple_name)
+        btnSimpleSave.setOnClickListener {
 
+            if(simpePrep.length()== 0 ||
+                simpeWork.length()== 0 ||
+                simpeRest.length()== 0 ||
+                simpeCycles.length()== 0 ||
+                simpeSet.length()== 0 ||
+                simpeRestSet.length()== 0 ||
+                simpeCool.length()== 0 ){
 
-            btnSimpleSave.setOnClickListener {
-            val prep: Int = view?.findViewById<EditText>(R.id.input_simpe_prep)?.text.toString().toInt()
-            val work: Int = view?.findViewById<EditText>(R.id.input_simpe_work)?.text.toString().toInt()
-            val rest: Int = view?.findViewById<EditText>(R.id.input_simpe_rest)?.text.toString().toInt()
-            val cycles: Int = view?.findViewById<EditText>(R.id.input_simpe_cycles)?.text.toString().toInt()
-            val sets: Int = view?.findViewById<EditText>(R.id.input_simpe_set)?.text.toString().toInt()
-            val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
-            val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
+                if(simpePrep.length()== 0){
+                    simpePrep.error = "Please insert preparation time"
+                }
+                if(simpeWork.length()== 0){
+                    simpeWork.error = "Please insert work time"
+                }
+                if(simpeRest.length()== 0){
+                    simpeRest.error = "Please insert rest time"
+                }
+                if(simpeCycles.length()== 0){
+                    simpeCycles.error = "Please insert cycles"
+                }
+                if(simpeSet.length()== 0){
+                    simpeSet.error = "Please insert nr of sets"
+                }
+                if(simpeRestSet.length()== 0){
+                    simpeRestSet.error = "Please insert rest between sets"
+                }
+                if(simpeCool.length()== 0){
+                    simpeCool.error = "Please insert cooldown time"
+                }
+
+            }else{
+
+                val prep: Int = view?.findViewById<EditText>(R.id.input_simpe_prep)?.text.toString().toInt()
+                val work: Int = view?.findViewById<EditText>(R.id.input_simpe_work)?.text.toString().toInt()
+                val rest: Int = view?.findViewById<EditText>(R.id.input_simpe_rest)?.text.toString().toInt()
+                val cycles: Int = view?.findViewById<EditText>(R.id.input_simpe_cycles)?.text.toString().toInt()
+                val sets: Int = view?.findViewById<EditText>(R.id.input_simpe_set)?.text.toString().toInt()
+                val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
+                val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
 
 //                saveData() //todo modificare save data e load data per salvare edit text
 
-            organizeData(prep, work, rest, cycles, sets, restSet, cool)
+                organizeData(prep, work, rest, cycles, sets, restSet, cool)
 
-            val saveCustomPopFragment = SaveCustomPopFragment.Companion.newTargetInstance()
-            saveCustomPopFragment.setTargetFragment(this, 3)
-            activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> saveCustomPopFragment.show(it1, SaveCustomPopFragment::class.java.name) }
+                val saveCustomPopFragment = SaveCustomPopFragment.Companion.newTargetInstance()
+                saveCustomPopFragment.setTargetFragment(this, 3)
+                activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> saveCustomPopFragment.show(it1, SaveCustomPopFragment::class.java.name) }
+            }
         }
 
         btnSimpleStart.setOnClickListener{
@@ -149,6 +180,8 @@ class SimpleFragment : Fragment() {
 
         }
     }
+
+
 
 
     fun storeWorkoutToSave(){

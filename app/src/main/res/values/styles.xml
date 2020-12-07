@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">#B2B2B2</item>
         <item name="colorAccent">#FFFFFF</item>
         <item name ="android:textColor">#B2B2B2</item>
+        <item name ="android:textColorPrimary">#B2B2B2</item>
         <item name ="android:background">#2F2F2F</item>
         <item name ="android:colorControlNormal">#B2B2B2</item>
 
