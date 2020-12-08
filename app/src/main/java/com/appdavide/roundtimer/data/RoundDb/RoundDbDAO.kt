@@ -17,4 +17,8 @@ interface RoundDbDAO{
 
     @Query("DELETE FROM round")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM round WHERE round.workoutId = :argOne ORDER BY round.id")
+    fun getId(argOne: Long) : LiveData<List<RoundDb>>
+
 }

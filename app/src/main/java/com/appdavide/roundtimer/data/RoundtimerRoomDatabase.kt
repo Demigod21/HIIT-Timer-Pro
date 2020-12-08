@@ -55,18 +55,7 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
 
             Log.e("DEBUG", "Populating Database")
             //WORKOUT
-            val populatedWo1Id = workoutdbDAO.insert(WorkoutDb("Workout Number 1"))
 
-            val populatedWo2Id = workoutdbDAO.insert(WorkoutDb("Workout Number 2"))
-
-            //ROUND WO1
-            rounddbDAO.insert(RoundDb("prep", 0, 80, 0, 80, populatedWo1Id))
-            rounddbDAO.insert(RoundDb("COOLDOWN", 0, 70, 0, 70, populatedWo1Id))
-            rounddbDAO.insert(RoundDb("exercise", 10, 10, 15, 250, populatedWo1Id))
-
-            //ROUND WO2
-            rounddbDAO.insert(RoundDb("PREPARATION", 0, 80, 0, 80, populatedWo2Id))
-            rounddbDAO.insert(RoundDb("Exercise", 10, 10, 15, 250, populatedWo2Id))
 
 
         }

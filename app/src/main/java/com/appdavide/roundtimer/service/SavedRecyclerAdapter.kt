@@ -1,18 +1,13 @@
 package com.appdavide.roundtimer.service
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
-import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbAndRoundsDb
-import com.appdavide.roundtimer.models.Round
-import kotlinx.android.synthetic.main.layout_round_list_item.view.*
 import kotlinx.android.synthetic.main.saved_list_item.view.*
 
 class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedViewHolder>() {
@@ -20,6 +15,16 @@ class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedView
     private var items = emptyList<WorkoutDb>()
     public lateinit var delImg : ImageView
     public lateinit var workoutToplay : WorkoutDb
+
+    private var mListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onDeleteClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mListener = listener
+    }
 
 
     inner class savedViewHolder(savedView: View) : RecyclerView.ViewHolder(savedView){
@@ -46,11 +51,12 @@ class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedView
 
         delImg.setOnClickListener {
             workoutToplay = items[position]
-            //todo qua vorrei chiamare una funzione di SavedFragment che
-                //todo -cerca nel db attraverso il viewmodel
-                //todo -crea la lista di round
-                //todo -apre e manda all'activity del Timer
+            mListener?.onDeleteClick(position)
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items.get(position).id
     }
 
     override fun getItemCount(): Int {

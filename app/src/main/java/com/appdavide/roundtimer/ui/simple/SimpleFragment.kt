@@ -102,8 +102,6 @@ class SimpleFragment : Fragment() {
                 val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
                 val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
 
-//                saveData() //todo modificare save data e load data per salvare edit text
-
                 organizeData(prep, work, rest, cycles, sets, restSet, cool)
 
                 val saveCustomPopFragment = SaveCustomPopFragment.Companion.newTargetInstance()

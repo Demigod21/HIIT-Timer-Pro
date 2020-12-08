@@ -22,6 +22,9 @@ class Repository(private val workoutDbDAO: WorkoutDbDAO,
         return workoutDbDAO.insert(workout)
     }
 
+    suspend fun getRoundsByWorkout(workoutId : Long) : LiveData<List<RoundDb>>{
+        return roundDbDAO.getId(workoutId)
+    }
 
 
 }

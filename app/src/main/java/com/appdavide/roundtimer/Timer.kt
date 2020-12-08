@@ -71,7 +71,6 @@ class Timer : AppCompatActivity() {
         var data = intent.getSerializableExtra("dataRounds") as List<Round>
 //        total = data.size
         current = 0
-        Log.d("TAG", "LOG ON CREATE")
         firstTime=true
         comeBack=false
         organizeTime(data)
