@@ -7,7 +7,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.media.AudioManager
-import android.media.ToneGenerator
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -27,6 +27,12 @@ class Timer : AppCompatActivity() {
     private lateinit var durArray: ArrayList<Int>
     private var current: Int = 0
     private var total: Int = 0
+
+    private var suono = SoundPool(6, AudioManager.STREAM_MUSIC, 0)
+    private var soundBeep : Int = 0
+    private var soundWhistle : Int = 0
+
+
 
     companion object {
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
@@ -80,6 +86,7 @@ class Timer : AppCompatActivity() {
         PrefUtil.setCurrentPosition(current, this)
         PrefUtil.setTotalPosition(total, this)
 
+        soundBeep = suono.load(this, R.raw.tic, 1)
 
         btn_timer_start.setOnClickListener{
             startTimer()
@@ -271,13 +278,17 @@ class Timer : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
                 if(secondsRemaining < 4){
-//                    val toneGen1 = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
-//                    toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 50)
-//                    todo add music
+                        suoniBeep() //todo risolvere denied by server
                 }
                 updateCountdownUI()
             }
         }.start()
+    }
+
+    private fun suoniBeep(){
+        suono.play(soundBeep, 1F, 1F, 1, 0, 1F)
+        suono.autoPause()
+
     }
 
     private fun setNewTimerLength(){
