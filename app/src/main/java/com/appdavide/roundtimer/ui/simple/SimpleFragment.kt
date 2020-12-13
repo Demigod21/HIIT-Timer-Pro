@@ -20,8 +20,10 @@ import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.ui.custom.CustomRoundViewModel
 import com.appdavide.roundtimer.ui.custom.SaveCustomPopFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_simple2.*
 import java.io.Serializable
 
 
@@ -45,13 +47,13 @@ class SimpleFragment : Fragment() {
         simpleFragmentViewModel = ViewModelProvider(this).get(SimpleFragmentViewModel::class.java)
 
 
-        val simpePrep = vista.findViewById<EditText>(R.id.input_simpe_prep)
-        val simpeWork = vista.findViewById<EditText>(R.id.input_simpe_work)
-        val simpeRest = vista.findViewById<EditText>(R.id.input_simpe_rest)
-        val simpeCycles = vista.findViewById<EditText>(R.id.input_simpe_cycles)
-        val simpeSet = vista.findViewById<EditText>(R.id.input_simpe_set)
-        val simpeRestSet = vista.findViewById<EditText>(R.id.input_simpe_restset)
-        val simpeCool = vista.findViewById<EditText>(R.id.input_simpe_cooldown)
+        var simpePrep = vista.findViewById<EditText>(R.id.input_simpe_prep)
+        var simpeWork = vista.findViewById<EditText>(R.id.input_simpe_work)
+        var simpeRest = vista.findViewById<EditText>(R.id.input_simpe_rest)
+        var simpeCycles = vista.findViewById<EditText>(R.id.input_simpe_cycles)
+        var simpeSet = vista.findViewById<EditText>(R.id.input_simpe_set)
+        var simpeRestSet = vista.findViewById<EditText>(R.id.input_simpe_restset)
+        var simpeCool = vista.findViewById<EditText>(R.id.input_simpe_cooldown)
 
         data = ArrayList<Round>()
 
@@ -59,6 +61,125 @@ class SimpleFragment : Fragment() {
 
         val btnSimpleStart = vista.findViewById(R.id.btn_simple_start) as Button
         val btnSimpleSave  = vista.findViewById(R.id.btn_simple_save) as Button
+
+
+
+        val fabPrepPlus = vista.findViewById(R.id.fab_simple_prep_plus) as FloatingActionButton
+        val fabPrepMinus = vista.findViewById(R.id.fab_simple_prep_minus) as FloatingActionButton
+
+        val fabWorkPlus = vista.findViewById(R.id.fab_simple_work_plus) as FloatingActionButton
+        val fabWorkMinus = vista.findViewById(R.id.fab_simple_work_minus) as FloatingActionButton
+
+        val fabRestPlus = vista.findViewById(R.id.fab_simple_rest_plus) as FloatingActionButton
+        val fabRestMinus = vista.findViewById(R.id.fab_simple_rest_minus) as FloatingActionButton
+
+        val fabCyclesPlus = vista.findViewById(R.id.fab_simple_cycles_plus) as FloatingActionButton
+        val fabCyclesMinus = vista.findViewById(R.id.fab_simple_cycles_minus) as FloatingActionButton
+
+        val fabSetPlus = vista.findViewById(R.id.fab_simple_sets_plus) as FloatingActionButton
+        val fabSetMinus = vista.findViewById(R.id.fab_simple_sets_minus) as FloatingActionButton
+
+        val fabRestSetPlus = vista.findViewById(R.id.fab_simple_restset_plus) as FloatingActionButton
+        val fabRestSetMinus = vista.findViewById(R.id.fab_simple_restset_minus) as FloatingActionButton
+
+        val fabCoolPlus = vista.findViewById(R.id.fab_simple_cooldown_plus) as FloatingActionButton
+        val fabCoolMinus = vista.findViewById(R.id.fab_simple_cooldown_minus) as FloatingActionButton
+
+
+        fabPrepPlus.setOnClickListener {
+            var t = Integer.parseInt(simpePrep.text.toString())
+            simpePrep.setText((t+1).toString())
+        }
+
+        fabPrepMinus.setOnClickListener {
+            if(Integer.parseInt(simpePrep.text.toString()) > 0){
+                var t = Integer.parseInt(simpePrep.text.toString())
+                simpePrep.setText((t-1).toString())
+            }
+        }
+
+
+        fabWorkPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeWork.text.toString())
+            simpeWork.setText((t+1).toString())
+        }
+
+        fabWorkMinus.setOnClickListener {
+            if(Integer.parseInt(simpeWork.text.toString()) > 0){
+                var t = Integer.parseInt(simpeWork.text.toString())
+                simpeWork.setText((t-1).toString())
+            }
+        }
+
+
+        fabRestPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeRest.text.toString())
+            simpeRest.setText((t+1).toString())
+        }
+
+        fabRestMinus.setOnClickListener {
+            if(Integer.parseInt(simpeRest.text.toString()) > 0){
+                var t = Integer.parseInt(simpeRest.text.toString())
+                simpeRest.setText((t-1).toString())
+            }
+        }
+
+
+        fabCyclesPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeCycles.text.toString())
+            simpeCycles.setText((t+1).toString())
+        }
+
+        fabCyclesMinus.setOnClickListener {
+            if(Integer.parseInt(simpeCycles.text.toString()) > 0){
+                var t = Integer.parseInt(simpeCycles.text.toString())
+                simpeCycles.setText((t-1).toString())
+            }
+        }
+
+
+        fabSetPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeSet.text.toString())
+            simpeSet.setText((t+1).toString())
+        }
+
+        fabSetMinus.setOnClickListener {
+            if(Integer.parseInt(simpeSet.text.toString()) > 0){
+                var t = Integer.parseInt(simpeSet.text.toString())
+                simpeSet.setText((t-1).toString())
+            }
+        }
+
+
+        fabRestSetPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeRestSet.text.toString())
+            simpeRestSet.setText((t+1).toString())
+        }
+
+        fabRestSetMinus.setOnClickListener {
+            if(Integer.parseInt(simpeRestSet.text.toString()) > 0){
+                var t = Integer.parseInt(simpeRestSet.text.toString())
+                simpeRestSet.setText((t-1).toString())
+            }
+        }
+
+
+        fabCoolPlus.setOnClickListener {
+            var t = Integer.parseInt(simpeCool.text.toString())
+            simpeCool.setText((t+1).toString())
+        }
+
+        fabCoolMinus.setOnClickListener {
+            if(Integer.parseInt(simpeCool.text.toString()) > 0){
+                var t = Integer.parseInt(simpeCool.text.toString())
+                simpeCool.setText((t-1).toString())
+            }
+        }
+
+
+
+
+
 
         btnSimpleSave.setOnClickListener {
 
