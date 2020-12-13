@@ -87,6 +87,7 @@ class Timer : AppCompatActivity() {
         PrefUtil.setTotalPosition(total, this)
 
         soundBeep = suono.load(this, R.raw.tic, 1)
+        soundWhistle = suono.load(this, R.raw.whistle, 1)
 
         btn_timer_start.setOnClickListener{
             startTimer()
@@ -199,6 +200,7 @@ class Timer : AppCompatActivity() {
     private fun onTimerFinished(){
         Log.d("TAG", "LOG ON TIMER FINISHED")
 
+        suoniWhistle()
 
         if(current == (total-1)){
             timerState = TimerState.Stopped
@@ -285,6 +287,12 @@ class Timer : AppCompatActivity() {
         }.start()
     }
 
+
+    private fun suoniWhistle(){
+        suono.play(soundWhistle, 1F, 1F, 1, 0, 1F)
+        suono.autoPause()
+
+    }
     private fun suoniBeep(){
         suono.play(soundBeep, 1F, 1F, 1, 0, 1F)
         suono.autoPause()
