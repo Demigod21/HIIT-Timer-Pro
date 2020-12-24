@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/timer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Timer">
@@ -34,7 +34,8 @@
             app:layout_constraintStart_toStartOf="@+id/txt_countdown"
             app:layout_constraintTop_toTopOf="@+id/txt_countdown"
             app:mpb_progressBackgroundTint="@color/bar_progress_background"
-            app:mpb_progressTint="@color/bar_progress" app:mpb_secondaryProgressTint="@color/bar_progress_secondary"/>
+            app:mpb_progressTint="@color/bar_progress"
+            app:mpb_secondaryProgressTint="@color/bar_progress_secondary" />
 
     <TextView
             android:id="@+id/txt_timer_type"

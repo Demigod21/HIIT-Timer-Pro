@@ -12,8 +12,10 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import com.appdavide.roundtimer.broadcasts.TimerExpiredReceiver
 import com.appdavide.roundtimer.models.Round
+import com.appdavide.roundtimer.ui.simple.SimpleFragment
 import com.appdavide.roundtimer.util.NotificationUtil
 import com.appdavide.roundtimer.util.PrefUtil
 import kotlinx.android.synthetic.main.activity_timer.*
@@ -31,6 +33,8 @@ class Timer : AppCompatActivity() {
     private var suono = SoundPool(6, AudioManager.STREAM_MUSIC, 0)
     private var soundBeep : Int = 0
     private var soundWhistle : Int = 0
+    private var finishedTimer : Boolean = false
+
 
 
 
@@ -68,11 +72,20 @@ class Timer : AppCompatActivity() {
     private var firstTime by Delegates.notNull<Boolean>()
     private var comeBack by Delegates.notNull<Boolean>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
         typeArray = arrayListOf()
         durArray = arrayListOf()
+
+        timer_layout.setOnClickListener {
+            if(finishedTimer != false){
+                this.onBackPressed()
+            }
+        }
+
+
 
         var data = intent.getSerializableExtra("dataRounds") as List<Round>
 //        total = data.size
@@ -105,7 +118,7 @@ class Timer : AppCompatActivity() {
 
         btn_timer_stop.setOnClickListener {
             timer.cancel()
-            onTimerFinished()
+            finished()
         }
 
         fab_timer_play.setOnClickListener {
@@ -203,13 +216,9 @@ class Timer : AppCompatActivity() {
         suoniWhistle()
 
         if(current == (total-1)){
+            finishedTimer = true
             timerState = TimerState.Stopped
-            //todo qua modifico e si ritorna a capo, rimettendo tutto da zero
-
-            secondsRemaining = 33
-            timerLengthSeconds = 33
-            updateCountdownUI()
-
+            finished()
         }else{
             current++
             PrefUtil.setCurrentPosition(current, this)
@@ -279,8 +288,8 @@ class Timer : AppCompatActivity() {
 
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
-                if(secondsRemaining < 4){
-                        suoniBeep() //todo risolvere denied by server
+                if(secondsRemaining in 1..3){
+                        suoniBeep()
                 }
                 updateCountdownUI()
             }
@@ -308,6 +317,31 @@ class Timer : AppCompatActivity() {
     private fun setPreviousTimerLength(){
         timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(this)
         progress_bar.max = timerLengthSeconds.toInt()
+    }
+
+    private fun finished(){
+
+        intent.removeExtra("dataRounds")
+        typeArray.clear()
+        durArray.clear()
+
+
+        txt_timer_type.text = "FINISHED"
+        txt_countdown.text = "0:00"
+        progress_bar.max = 10
+        progress_bar.progress = 10
+
+        btn_timer_start.isEnabled = false
+        btn_timer_pause.isEnabled = false
+        btn_timer_stop.isEnabled = false
+
+
+        progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_finished), PorterDuff.Mode.SRC_IN)
+        txt_countdown.setTextColor(resources.getColor(R.color.bar_progress_finished))
+        txt_timer_type.setTextColor(resources.getColor(R.color.bar_progress_finished))
+        fab_timer_play.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_finished)))
+        fab_timer_pause.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_finished)))
+        fab_timer_stop.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.bar_progress_finished)))
     }
 
     private fun updateCountdownUI(){

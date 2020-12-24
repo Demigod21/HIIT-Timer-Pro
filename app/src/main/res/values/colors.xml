@@ -14,6 +14,9 @@
     <color name="bar_progress_rest_set">#FF0000</color>
     <color name="bar_progress_cooldown">#00BCD4</color>
 
+    <color name="bar_progress_finished">#673AB7</color>
+
+
 
     <color name="bar_und_prep">#FFE79E</color>
     <color name="bar_und_work">#84B086</color>

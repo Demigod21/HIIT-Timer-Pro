@@ -1,6 +1,7 @@
 package com.appdavide.roundtimer.ui.saved
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appdavide.roundtimer.R
+import com.appdavide.roundtimer.Timer
 import com.appdavide.roundtimer.data.RoundDb.RoundDb
 import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDbDAO
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.SavedRecyclerAdapter
+import java.io.Serializable
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +35,10 @@ class SavedFragment : Fragment() {
     private lateinit var dao: WorkoutDbDAO
 
     private lateinit var data: ArrayList<Round>
+
+    private var nrRound : Int = 0
+    private var iterRound : Int = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +73,13 @@ class SavedFragment : Fragment() {
                     } })
 
                 Log.d("TAG", "LOG ON DOPO RICERCA ")
-                //todo chiamare la getbyid del dao
+
+/*                Log.d("TAG", "LOG ON DOPO RICERCA ")
+                val context = context
+                val intent = Intent(context, Timer::class.java)
+                intent.removeExtra("dataRounds")
+                intent.putExtra("dataRounds", data as Serializable)
+                context?.startActivity(intent)*/
             }
         })
 
@@ -80,6 +93,11 @@ class SavedFragment : Fragment() {
             var roundToAdd = Round(it.type, it.workDur, it.restDur, it.cycles, it.dur)
             data.add(roundToAdd)
         }
+        val context = context
+        val intent = Intent(context, Timer::class.java)
+        intent.removeExtra("dataRounds")
+        intent.putExtra("dataRounds", data as Serializable)
+        context?.startActivity(intent)
     }
 
 
