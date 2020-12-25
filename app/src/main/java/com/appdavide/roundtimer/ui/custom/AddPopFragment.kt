@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 
 
 import com.appdavide.roundtimer.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.popup_add.*
 
 class AddPopFragment : DialogFragment() {
@@ -38,8 +39,8 @@ class AddPopFragment : DialogFragment() {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.popup_add, container, false)
 
-        val btnAddPopup = vista.findViewById(R.id.btn_add_popup) as Button
-        val btnCancelPopup = vista.findViewById(R.id.btn_cancel_popup) as Button
+        val btnAddPopup = vista.findViewById(R.id.fab_add_popup) as FloatingActionButton
+        val btnCancelPopup = vista.findViewById(R.id.fab_cancel_popup) as FloatingActionButton
 
         work_dur = vista.findViewById(R.id.edit_work_dur)
         rest_dur = vista.findViewById(R.id.edit_rest_dur)
@@ -74,22 +75,27 @@ class AddPopFragment : DialogFragment() {
                         work_dur?.visibility = View.GONE
                         edit_cycles?.visibility = View.GONE
                         rest_dur?.visibility = View.GONE
+                        dur?.visibility = View.VISIBLE
+
                     }
                     1-> { //work round
                         work_dur?.visibility = View.VISIBLE
                         edit_cycles?.visibility = View.VISIBLE
                         rest_dur?.visibility = View.VISIBLE
+                        dur?.visibility = View.GONE
                         dur.isEnabled = false
                     }
                     2 -> { //rest round
                         work_dur?.visibility = View.GONE
                         edit_cycles?.visibility = View.GONE
                         rest_dur?.visibility = View.GONE
+                        dur?.visibility = View.VISIBLE
                     }
                     3-> { //cool
                         work_dur?.visibility = View.GONE
                         edit_cycles?.visibility = View.GONE
                         rest_dur?.visibility = View.GONE
+                        dur?.visibility = View.VISIBLE
 
                     }
                 }

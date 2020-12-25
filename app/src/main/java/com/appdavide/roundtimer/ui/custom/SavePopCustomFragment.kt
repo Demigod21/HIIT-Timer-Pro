@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import com.appdavide.roundtimer.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SavePopCustomFragment : DialogFragment() {
 
@@ -30,7 +31,7 @@ class SavePopCustomFragment : DialogFragment() {
         // Inflate the layout for this fragment
         val vista = inflater.inflate(R.layout.fragment_save_custom_pop, container, false)
 
-        val btn_save_pop = vista.findViewById<Button>(R.id.btn_savepop)
+        val btn_save_pop = vista.findViewById<FloatingActionButton>(R.id.fab_savepop)
         val edit_name_pop = vista.findViewById<EditText>(R.id.edit_savepop)
 
         btn_save_pop.setOnClickListener {

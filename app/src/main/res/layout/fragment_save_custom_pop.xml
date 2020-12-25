@@ -7,28 +7,36 @@
         android:layout_height="match_parent"
         tools:context=".ui.custom.SaveCustomPopFragment" >
 
-    <Button
-            android:id="@+id/btn_savepop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="SAVE"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_savepop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/edit_savepop" />
-
     <EditText
             android:id="@+id/edit_savepop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:hint="Workout name"
             android:inputType="textPersonName"
+            android:textColorHint="@color/text_color_light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_savepop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_save_24"
+            app:backgroundTint="@color/text_color_light_grey"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/edit_savepop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="36dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

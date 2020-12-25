@@ -180,25 +180,6 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_simple_prep"
                 app:layout_constraintTop_toBottomOf="@+id/input_simpe_restset" />
 
-        <Button
-                android:id="@+id/btn_simple_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:text="SAVE"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_simpe_cooldown" />
-
-        <Button
-                android:id="@+id/btn_simple_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/ic_baseline_play_circle_outline_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_simple_save" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_simple_prep_plus"
                 android:layout_width="wrap_content"
@@ -381,6 +362,32 @@
                 app:layout_constraintBottom_toBottomOf="@+id/fab_simple_cooldown_minus"
                 app:layout_constraintEnd_toEndOf="@+id/fab_simple_prep_plus"
                 app:maxImageSize="36dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_simple_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_save_24"
+                app:backgroundTint="@color/text_color_light_grey"
+                app:layout_constraintStart_toStartOf="@+id/input_simpe_cooldown"
+                app:layout_constraintTop_toBottomOf="@+id/input_simpe_cooldown"
+                app:maxImageSize="36dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_simple_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:clickable="true"
+                android:src="@drawable/timer_play_background_36"
+                app:backgroundTint="@color/text_color_light_grey"
+                app:layout_constraintEnd_toEndOf="@+id/input_simpe_cooldown"
+                app:layout_constraintTop_toTopOf="@+id/fab_simple_save"
+                app:maxImageSize="36dp"
+                app:rippleColor="#FFFFFF" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

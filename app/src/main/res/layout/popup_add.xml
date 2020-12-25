@@ -3,34 +3,51 @@
                                                    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/linearLayout"
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent" android:orientation="vertical">
+
     <EditText
             android:id="@+id/edit_work_dur"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp" android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
-            android:hint="Work interval duration" android:inputType="number"
+            android:hint="Work interval duration"
+            android:inputType="number"
+            android:textColorHint="@color/text_color_light_grey"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/spinner2"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+
     <EditText
             android:id="@+id/edit_rest_dur"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp" android:layout_marginEnd="8dp" android:ems="10"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
             android:hint="Rest interval duration"
-            android:inputType="number" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/edit_work_dur"/>
+            android:inputType="number"
+            android:textColorHint="@color/text_color_light_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_work_dur" />
+
     <EditText
             android:id="@+id/edit_cycles"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp" android:layout_marginEnd="8dp" android:ems="10"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
             android:hint="Number of cycles"
-            android:inputType="number" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/edit_rest_dur"/>
+            android:inputType="number"
+            android:textColorHint="@color/text_color_light_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_rest_dur" />
 
     <EditText
             android:id="@+id/edit_duration"
@@ -40,27 +57,10 @@
             android:ems="10"
             android:hint="Total duration"
             android:inputType="number"
+            android:textColorHint="@color/text_color_light_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_cycles" />
-
-    <Button
-            android:id="@+id/btn_add_popup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" android:layout_marginBottom="32dp"
-            android:text="ADD"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="@+id/edit_duration"
-            app:layout_constraintTop_toBottomOf="@+id/edit_duration"/>
-    <Button
-            android:id="@+id/btn_cancel_popup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@android:string/cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_add_popup"
-            app:layout_constraintEnd_toEndOf="@+id/edit_duration"
-            app:layout_constraintTop_toBottomOf="@+id/edit_duration"/>
 
     <Spinner
             android:id="@+id/spinner2"
@@ -72,4 +72,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_duration"
+            app:layout_constraintStart_toStartOf="@+id/edit_duration" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            app:backgroundTint="@color/text_color_light_grey"
+            app:ensureMinTouchTargetSize="false"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/edit_duration"
+            app:layout_constraintTop_toBottomOf="@+id/edit_duration"
+            app:maxImageSize="36dp"
+            app:srcCompat="@drawable/simple_add_26_background" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_cancel_popup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            app:backgroundTint="@color/text_color_light_grey"
+            app:fabSize="mini"
+            app:layout_constraintEnd_toEndOf="@+id/edit_duration"
+            app:layout_constraintTop_toTopOf="@+id/fab_add_popup"
+            app:maxImageSize="36dp"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

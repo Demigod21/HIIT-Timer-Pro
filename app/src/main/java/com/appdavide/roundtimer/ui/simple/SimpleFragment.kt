@@ -59,8 +59,8 @@ class SimpleFragment : Fragment() {
 
 //        loadData() //todo modificare save data e load data per salvare edit text
 
-        val btnSimpleStart = vista.findViewById(R.id.btn_simple_start) as Button
-        val btnSimpleSave  = vista.findViewById(R.id.btn_simple_save) as Button
+        val btnSimpleStart = vista.findViewById(R.id.fab_simple_start) as FloatingActionButton
+        val btnSimpleSave  = vista.findViewById(R.id.fab_simple_save) as FloatingActionButton
 
 
 

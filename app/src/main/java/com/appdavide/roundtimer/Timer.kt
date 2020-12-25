@@ -35,9 +35,6 @@ class Timer : AppCompatActivity() {
     private var soundWhistle : Int = 0
     private var finishedTimer : Boolean = false
 
-
-
-
     companion object {
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
             val wakeUpTime = (nowSeconds + secondsRemaining) * 1000

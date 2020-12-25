@@ -23,6 +23,7 @@ import com.appdavide.roundtimer.data.WorkoutDb.WorkoutDb
 import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.RoundRecyclerAdapter
 import com.appdavide.roundtimer.ui.saved.SavedFragmentViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
@@ -58,9 +59,9 @@ class CustomFragment : Fragment() {
 
         adat.submitList(data)
 
-        val btnStartTimer = vista.findViewById(R.id.btn_start_timer) as Button
-        val btnAddRound : Button = vista.findViewById(R.id.btn_add_round) as Button
-        val btnSaveWorkout = vista.findViewById(R.id.btn_custom_save) as Button
+        val btnStartTimer = vista.findViewById(R.id.fab_start_timer) as FloatingActionButton
+        val btnAddRound  = vista.findViewById(R.id.fab_add_round) as FloatingActionButton
+        val btnSaveWorkout = vista.findViewById(R.id.fab_custom_save) as FloatingActionButton
 
         btnStartTimer.setOnClickListener{
             val context = btnStartTimer.context
@@ -83,6 +84,8 @@ class CustomFragment : Fragment() {
             savePopCustomFragment.setTargetFragment(this, 2)
             activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> savePopCustomFragment.show(it1, SavePopCustomFragment::class.java.name) }
         }
+
+
 
 
         val touchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0){
