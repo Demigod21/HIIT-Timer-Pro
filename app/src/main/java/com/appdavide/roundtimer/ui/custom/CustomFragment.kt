@@ -64,11 +64,14 @@ class CustomFragment : Fragment() {
         val btnSaveWorkout = vista.findViewById(R.id.fab_custom_save) as FloatingActionButton
 
         btnStartTimer.setOnClickListener{
-            val context = btnStartTimer.context
-            val intent = Intent(context, Timer::class.java)
-            intent.removeExtra("dataRounds")
-            intent.putExtra("dataRounds", data as Serializable)
-            context.startActivity(intent)
+            if (data != null && data.size != 0){
+                val context = btnStartTimer.context
+                val intent = Intent(context, Timer::class.java)
+                intent.removeExtra("dataRounds")
+                intent.putExtra("dataRounds", data as Serializable)
+                context.startActivity(intent)
+            }
+
         }
 
         btnAddRound.setOnClickListener{

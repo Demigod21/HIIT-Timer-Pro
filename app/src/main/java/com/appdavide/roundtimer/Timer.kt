@@ -115,6 +115,8 @@ class Timer : AppCompatActivity() {
 
         btn_timer_stop.setOnClickListener {
             timer.cancel()
+            finishedTimer = true
+            timerState = TimerState.Stopped
             finished()
         }
 
@@ -285,7 +287,7 @@ class Timer : AppCompatActivity() {
 
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
-                if(secondsRemaining in 1..3){
+                if(secondsRemaining in 0..3){
                         suoniBeep()
                 }
                 updateCountdownUI()
@@ -296,13 +298,10 @@ class Timer : AppCompatActivity() {
 
     private fun suoniWhistle(){
         suono.play(soundWhistle, 1F, 1F, 1, 0, 1F)
-        suono.autoPause()
 
     }
     private fun suoniBeep(){
         suono.play(soundBeep, 1F, 1F, 1, 0, 1F)
-        suono.autoPause()
-
     }
 
     private fun setNewTimerLength(){

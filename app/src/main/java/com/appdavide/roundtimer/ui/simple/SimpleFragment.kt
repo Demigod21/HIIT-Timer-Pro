@@ -87,11 +87,17 @@ class SimpleFragment : Fragment() {
 
 
         fabPrepPlus.setOnClickListener {
+            if(simpePrep.length()== 0){
+                simpePrep.setText("0")
+            }
             var t = Integer.parseInt(simpePrep.text.toString())
             simpePrep.setText((t+1).toString())
         }
 
         fabPrepMinus.setOnClickListener {
+            if(simpePrep.length()== 0){
+                simpePrep.setText("0")
+            }
             if(Integer.parseInt(simpePrep.text.toString()) > 0){
                 var t = Integer.parseInt(simpePrep.text.toString())
                 simpePrep.setText((t-1).toString())
@@ -100,11 +106,17 @@ class SimpleFragment : Fragment() {
 
 
         fabWorkPlus.setOnClickListener {
+            if(simpeWork.length()== 0){
+                simpeWork.setText("0")
+            }
             var t = Integer.parseInt(simpeWork.text.toString())
             simpeWork.setText((t+1).toString())
         }
 
         fabWorkMinus.setOnClickListener {
+            if(simpeWork.length()== 0){
+                simpeWork.setText("0")
+            }
             if(Integer.parseInt(simpeWork.text.toString()) > 0){
                 var t = Integer.parseInt(simpeWork.text.toString())
                 simpeWork.setText((t-1).toString())
@@ -113,11 +125,17 @@ class SimpleFragment : Fragment() {
 
 
         fabRestPlus.setOnClickListener {
+            if(simpeRest.length()== 0){
+                simpeRest.setText("0")
+            }
             var t = Integer.parseInt(simpeRest.text.toString())
             simpeRest.setText((t+1).toString())
         }
 
         fabRestMinus.setOnClickListener {
+            if(simpeRest.length()== 0){
+                simpeRest.setText("0")
+            }
             if(Integer.parseInt(simpeRest.text.toString()) > 0){
                 var t = Integer.parseInt(simpeRest.text.toString())
                 simpeRest.setText((t-1).toString())
@@ -126,11 +144,17 @@ class SimpleFragment : Fragment() {
 
 
         fabCyclesPlus.setOnClickListener {
+            if(simpeCycles.length()== 0){
+                simpeCycles.setText("0")
+            }
             var t = Integer.parseInt(simpeCycles.text.toString())
             simpeCycles.setText((t+1).toString())
         }
 
         fabCyclesMinus.setOnClickListener {
+            if(simpeCycles.length()== 0){
+                simpeCycles.setText("0")
+            }
             if(Integer.parseInt(simpeCycles.text.toString()) > 0){
                 var t = Integer.parseInt(simpeCycles.text.toString())
                 simpeCycles.setText((t-1).toString())
@@ -139,11 +163,17 @@ class SimpleFragment : Fragment() {
 
 
         fabSetPlus.setOnClickListener {
+            if(simpeSet.length()== 0){
+                simpeSet.setText("0")
+            }
             var t = Integer.parseInt(simpeSet.text.toString())
             simpeSet.setText((t+1).toString())
         }
 
         fabSetMinus.setOnClickListener {
+            if(simpeSet.length()== 0){
+                simpeSet.setText("0")
+            }
             if(Integer.parseInt(simpeSet.text.toString()) > 0){
                 var t = Integer.parseInt(simpeSet.text.toString())
                 simpeSet.setText((t-1).toString())
@@ -152,11 +182,17 @@ class SimpleFragment : Fragment() {
 
 
         fabRestSetPlus.setOnClickListener {
+            if(simpeRestSet.length()== 0){
+                simpeRestSet.setText("0")
+            }
             var t = Integer.parseInt(simpeRestSet.text.toString())
             simpeRestSet.setText((t+1).toString())
         }
 
         fabRestSetMinus.setOnClickListener {
+            if(simpeRestSet.length()== 0){
+                simpeRestSet.setText("0")
+            }
             if(Integer.parseInt(simpeRestSet.text.toString()) > 0){
                 var t = Integer.parseInt(simpeRestSet.text.toString())
                 simpeRestSet.setText((t-1).toString())
@@ -165,11 +201,17 @@ class SimpleFragment : Fragment() {
 
 
         fabCoolPlus.setOnClickListener {
+            if(simpeCool.length()== 0){
+                simpeCool.setText("0")
+            }
             var t = Integer.parseInt(simpeCool.text.toString())
             simpeCool.setText((t+1).toString())
         }
 
         fabCoolMinus.setOnClickListener {
+            if(simpeCool.length()== 0){
+                simpeCool.setText("0")
+            }
             if(Integer.parseInt(simpeCool.text.toString()) > 0){
                 var t = Integer.parseInt(simpeCool.text.toString())
                 simpeCool.setText((t-1).toString())
