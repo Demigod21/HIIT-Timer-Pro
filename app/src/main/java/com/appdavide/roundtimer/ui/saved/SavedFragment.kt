@@ -19,15 +19,6 @@ import com.appdavide.roundtimer.models.Round
 import com.appdavide.roundtimer.service.SavedRecyclerAdapter
 import java.io.Serializable
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class SavedFragment : Fragment() {
 
     private lateinit var savedFragmentViewModel: SavedFragmentViewModel
@@ -64,22 +55,13 @@ class SavedFragment : Fragment() {
 
         adapter.setOnItemClickListener(object : SavedRecyclerAdapter.OnItemClickListener {
             override fun onDeleteClick(position: Int) {
-                Log.d("TAG", "LOG ON DELETE SAVE "+position)
-                var longlong = adapter.getItemId(position)
-                var xx = savedFragmentViewModel.getbyid(longlong)
-                xx.observe(viewLifecycleOwner, androidx.lifecycle.Observer { items ->
+                var idDatabase = adapter.getItemId(position)
+                var roundDbLiveDataList = savedFragmentViewModel.getbyid(idDatabase)
+                roundDbLiveDataList.observe(viewLifecycleOwner, androidx.lifecycle.Observer { items ->
                     items?.let{
                         organizeRound(it)
                     } })
 
-                Log.d("TAG", "LOG ON DOPO RICERCA ")
-
-/*                Log.d("TAG", "LOG ON DOPO RICERCA ")
-                val context = context
-                val intent = Intent(context, Timer::class.java)
-                intent.removeExtra("dataRounds")
-                intent.putExtra("dataRounds", data as Serializable)
-                context?.startActivity(intent)*/
             }
         })
 

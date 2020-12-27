@@ -389,6 +389,18 @@
                 app:maxImageSize="36dp"
                 app:rippleColor="#FFFFFF" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:clickable="true"
+                android:src="@drawable/ic_baseline_privacy_tip_24"
+                app:backgroundTint="#B2B2B2"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

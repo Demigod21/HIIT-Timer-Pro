@@ -35,8 +35,6 @@ class SimpleFragment : Fragment() {
     private lateinit var simpleFragmentViewModel: SimpleFragmentViewModel
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,11 +55,12 @@ class SimpleFragment : Fragment() {
 
         data = ArrayList<Round>()
 
-//        loadData() //todo modificare save data e load data per salvare edit text
+//        loadData()
 
         val btnSimpleStart = vista.findViewById(R.id.fab_simple_start) as FloatingActionButton
         val btnSimpleSave  = vista.findViewById(R.id.fab_simple_save) as FloatingActionButton
 
+        val btnPrivacy  = vista.findViewById(R.id.fab_privacy) as FloatingActionButton
 
 
         val fabPrepPlus = vista.findViewById(R.id.fab_simple_prep_plus) as FloatingActionButton
@@ -84,6 +83,14 @@ class SimpleFragment : Fragment() {
 
         val fabCoolPlus = vista.findViewById(R.id.fab_simple_cooldown_plus) as FloatingActionButton
         val fabCoolMinus = vista.findViewById(R.id.fab_simple_cooldown_minus) as FloatingActionButton
+
+        btnPrivacy.setOnClickListener {
+            val popupPrivacyFragment = PopupPrivacyFragment.Companion.newTargetInstance()
+            popupPrivacyFragment.setTargetFragment(this, 4)
+            activity?.supportFragmentManager?.beginTransaction()?.let { it1 ->
+                popupPrivacyFragment.show(it1, PopupPrivacyFragment::class.java.name)
+            }
+        }
 
 
         fabPrepPlus.setOnClickListener {
@@ -221,8 +228,6 @@ class SimpleFragment : Fragment() {
 
 
 
-
-
         btnSimpleSave.setOnClickListener {
 
             if(simpePrep.length()== 0 ||
@@ -269,7 +274,8 @@ class SimpleFragment : Fragment() {
 
                 val saveCustomPopFragment = SaveCustomPopFragment.Companion.newTargetInstance()
                 saveCustomPopFragment.setTargetFragment(this, 3)
-                activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> saveCustomPopFragment.show(it1, SaveCustomPopFragment::class.java.name) }
+                activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> saveCustomPopFragment.show(it1, SaveCustomPopFragment::class.java.name)
+                }
             }
         }
 
@@ -317,7 +323,6 @@ class SimpleFragment : Fragment() {
                 val restSet: Int = view?.findViewById<EditText>(R.id.input_simpe_restset)?.text.toString().toInt()
                 val cool: Int = view?.findViewById<EditText>(R.id.input_simpe_cooldown)?.text.toString().toInt()
 
-//                saveData() //todo modificare save data e load data per salvare edit text
 
                 organizeData(prep, work, rest, cycles, sets, restSet, cool)
                 intent.removeExtra("dataRounds")
@@ -374,7 +379,7 @@ class SimpleFragment : Fragment() {
 
     }
 
-    //todo catturare evento cambiamento menu per saveData
+
 
     fun saveData(){
         val sharedPref = activity?.getSharedPreferences("shared preferences", Context.MODE_PRIVATE)

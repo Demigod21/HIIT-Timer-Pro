@@ -5,7 +5,6 @@
         android:layout_height="wrap_content"
         tools:context=".ui.saved.SavedFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_recycler"

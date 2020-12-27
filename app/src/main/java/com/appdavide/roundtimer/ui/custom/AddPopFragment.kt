@@ -111,7 +111,7 @@ class AddPopFragment : DialogFragment() {
 
             when (type){
                 "PREPARATION"->{
-                    dur.error = null //todo non setta error a null
+                    dur.error = null
                     if (dur.length() == 0){
                         dur.error = "Please insert duration"
                     }else{
@@ -178,22 +178,6 @@ class AddPopFragment : DialogFragment() {
                 }
             }
 
-/*            val workdur: Int = view?.findViewById<EditText>(R.id.edit_work_dur)?.text.toString().toInt()
-            val restdur: Int = view?.findViewById<EditText>(R.id.edit_rest_dur)?.text.toString().toInt()
-            val cycles: Int = view?.findViewById<EditText>(R.id.edit_cycles)?.text.toString().toInt()
-            val duration: Int = view?.findViewById<EditText>(R.id.edit_duration)?.text.toString().toInt()
-
-
-            //todo agiungere i vari controlli
-
-            intent.putExtra("CUSTOM_TYPE", type)
-            intent.putExtra("CUSTOM_WORK_DUR", workdur)
-            intent.putExtra("CUSTOM_REST_DUR", restdur)
-            intent.putExtra("CUSTOM_CYCLES", cycles)
-            intent.putExtra("CUSTOM_DURATION", duration)
-
-            targetFragment!!.onActivityResult(1, Activity.RESULT_OK, intent)
-            dismiss()*/
         }
 
         btnCancelPopup.setOnClickListener{

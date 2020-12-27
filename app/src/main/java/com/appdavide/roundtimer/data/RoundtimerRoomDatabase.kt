@@ -33,15 +33,13 @@ abstract class RoundtimerRoomDatabase : RoomDatabase(){
             super.onCreate(db)
             INSTANCE?.let{ database ->
                 scope.launch {
-                    //  TODO    populateInitialDatabase
                     populateTestingDatabase(database.WorkoutDbDAO(),
                         database.RoundDbDAO())
                 }
             }
         }
 
-        //  Disable useless wal shm files for testing
-        //  TODO Disable on release
+
         override fun onOpen(db: SupportSQLiteDatabase) {
             db.disableWriteAheadLogging()
             super.onOpen(db)

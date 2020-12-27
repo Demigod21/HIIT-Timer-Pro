@@ -32,7 +32,7 @@ class SavedRecyclerAdapter : RecyclerView.Adapter<SavedRecyclerAdapter.savedView
 
         init {
             savedView.setOnClickListener {
-                //  TODO Send Intent and Extra to open another activity on savedItems press
+                // Send Intent and Extra to open another activity on savedItems press
             }
         }
     }

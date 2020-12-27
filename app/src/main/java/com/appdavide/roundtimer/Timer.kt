@@ -11,6 +11,7 @@ import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.appdavide.roundtimer.broadcasts.TimerExpiredReceiver
@@ -171,7 +172,6 @@ class Timer : AppCompatActivity() {
     }
 
     private fun initTimer(){
-        Log.d("TAG", "LOG ON INIT TIMER")
 
         if(firstTime)
         {
@@ -180,7 +180,6 @@ class Timer : AppCompatActivity() {
             secondsRemaining = durArray[0].toLong()
             updateCountdownUI()
             txt_timer_type.text = typeArray[0]
-            Log.d("TAG", "LOG ON INIT TIMER PRIMA VOLTA")
 
         }else{
             timerState = PrefUtil.getTimerState(this)
@@ -210,8 +209,6 @@ class Timer : AppCompatActivity() {
     }
 
     private fun onTimerFinished(){
-        Log.d("TAG", "LOG ON TIMER FINISHED")
-
         suoniWhistle()
 
         if(current == (total-1)){
@@ -229,6 +226,10 @@ class Timer : AppCompatActivity() {
 
     private fun startTimer(){
 
+        fab_timer_pause.visibility = View.VISIBLE
+        fab_timer_play.visibility = View.VISIBLE
+        fab_timer_stop.visibility = View.VISIBLE
+
         if(comeBack == true){
             comeBack=false
         }else{
@@ -238,7 +239,6 @@ class Timer : AppCompatActivity() {
                 secondsRemaining = durArray[current].toLong()
             }
         }
-        Log.d("TAG", "LOG ON START TIMER")
         timerLengthSeconds = durArray[current].toLong()
         timerState = TimerState.Running
         txt_timer_type.text = typeArray[current]
@@ -320,6 +320,11 @@ class Timer : AppCompatActivity() {
         intent.removeExtra("dataRounds")
         typeArray.clear()
         durArray.clear()
+
+        fab_timer_pause.visibility = View.INVISIBLE
+        fab_timer_play.visibility = View.INVISIBLE
+        fab_timer_stop.visibility = View.INVISIBLE
+
 
 
         txt_timer_type.text = "FINISHED"

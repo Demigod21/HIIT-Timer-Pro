@@ -43,14 +43,11 @@ class SaveCustomPopFragment : DialogFragment() {
                 var intent = Intent()
                 var saveName:String = edit_name_pop.text.toString()
                 intent.putExtra("SAVE_POP_NAME", saveName)
-                targetFragment!!.onActivityResult(3, Activity.RESULT_OK, intent) //todo cambiare questo request code
+                targetFragment!!.onActivityResult(3, Activity.RESULT_OK, intent)
                 dismiss()
             }
 
         }
-
-
-
 
         return vista
     }

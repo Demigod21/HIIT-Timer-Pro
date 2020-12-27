@@ -103,7 +103,7 @@ class NotificationUtil {
 
         private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
                 : NotificationCompat.Builder{
-            val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION) //todo cambiare suono
+            val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val nBuilder = NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_timer)
                 .setAutoCancel(true)

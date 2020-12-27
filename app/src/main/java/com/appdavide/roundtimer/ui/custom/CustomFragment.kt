@@ -106,7 +106,6 @@ class CustomFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
         touchHelper.attachToRecyclerView(recycler)
