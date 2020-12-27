@@ -121,6 +121,8 @@ class Timer : AppCompatActivity() {
             finished()
         }
 
+
+
         fab_timer_play.setOnClickListener {
             startTimer()
             updateButtons()
@@ -138,6 +140,9 @@ class Timer : AppCompatActivity() {
         fab_timer_stop.setOnClickListener {
             timer.cancel()
             onTimerFinished()
+            finishedTimer = true
+            timerState = TimerState.Stopped
+            finished()
         }
 
 
