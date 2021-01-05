@@ -313,9 +313,6 @@ class Timer : AppCompatActivity() {
         progress_bar.max = 10
         progress_bar.progress = 10
 
-        btn_timer_start.isEnabled = false
-        btn_timer_pause.isEnabled = false
-        btn_timer_stop.isEnabled = false
 
 
         progress_bar.progressDrawable.setColorFilter(resources.getColor(R.color.bar_progress_finished), PorterDuff.Mode.SRC_IN)
@@ -338,28 +335,16 @@ class Timer : AppCompatActivity() {
     private fun updateButtons(){
         when (timerState) {
             TimerState.Running ->{
-                btn_timer_start.isEnabled = false
-                btn_timer_pause.isEnabled = true
-                btn_timer_stop.isEnabled = true
-
                 fab_timer_play.isEnabled = false
                 fab_timer_pause.isEnabled = true
                 fab_timer_stop.isEnabled = true
             }
             TimerState.Stopped -> {
-                btn_timer_start.isEnabled = true
-                btn_timer_pause.isEnabled = false
-                btn_timer_stop.isEnabled = false
-
                 fab_timer_play.isEnabled = true
                 fab_timer_pause.isEnabled = false
                 fab_timer_stop.isEnabled = false
             }
             TimerState.Paused -> {
-                btn_timer_start.isEnabled = true
-                btn_timer_pause.isEnabled = false
-                btn_timer_stop.isEnabled = true
-
                 fab_timer_play.isEnabled = true
                 fab_timer_pause.isEnabled = false
                 fab_timer_stop.isEnabled = true
