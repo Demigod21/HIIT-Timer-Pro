@@ -100,28 +100,6 @@ class Timer : AppCompatActivity() {
         soundBeep = suono.load(this, R.raw.tic, 1)
         soundWhistle = suono.load(this, R.raw.whistle, 1)
 
-        btn_timer_start.setOnClickListener{
-            startTimer()
-//            timerState =  TimerState.Running
-            updateButtons()
-        }
-
-        btn_timer_pause.setOnClickListener {
-            timer.cancel()
-            timerState = TimerState.Paused
-            PrefUtil.setSecondsRemaining(secondsRemaining, this)
-            Log.d("TAG", "LOG CLICK PAUSE")
-            updateButtons()
-        }
-
-        btn_timer_stop.setOnClickListener {
-            timer.cancel()
-            finishedTimer = true
-            timerState = TimerState.Stopped
-            finished()
-        }
-
-
 
         fab_timer_play.setOnClickListener {
             startTimer()
@@ -139,7 +117,6 @@ class Timer : AppCompatActivity() {
 
         fab_timer_stop.setOnClickListener {
             timer.cancel()
-            onTimerFinished()
             finishedTimer = true
             timerState = TimerState.Stopped
             finished()
@@ -205,8 +182,6 @@ class Timer : AppCompatActivity() {
             else if (timerState == TimerState.Running){
                 startTimer()
             }
-
-
         }
 
         updateButtons()
@@ -248,6 +223,7 @@ class Timer : AppCompatActivity() {
         timerState = TimerState.Running
         txt_timer_type.text = typeArray[current]
         progress_bar.max = timerLengthSeconds.toInt()
+        updateCountdownUI()
 
         when(typeArray[current]){
             "PREPARATION" -> {

@@ -50,37 +50,6 @@
             android:textSize="50sp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-            android:id="@+id/btn_timer_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="START"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/progress_bar"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
-
-    <Button
-            android:id="@+id/btn_timer_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STOP"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-            app:layout_constraintTop_toTopOf="@+id/btn_timer_start" />
-
-    <Button
-            android:id="@+id/btn_timer_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="PAUSE"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/btn_timer_stop"
-            app:layout_constraintStart_toEndOf="@+id/btn_timer_start"
-            app:layout_constraintTop_toTopOf="@+id/btn_timer_start" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_timer_play"
             android:layout_width="wrap_content"

@@ -83,9 +83,11 @@ class CustomFragment : Fragment() {
         }
 
         btnSaveWorkout.setOnClickListener{
-            val savePopCustomFragment = SavePopCustomFragment.Companion.newTargetInstance()
-            savePopCustomFragment.setTargetFragment(this, 2)
-            activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> savePopCustomFragment.show(it1, SavePopCustomFragment::class.java.name) }
+            if (data != null && data.size != 0){
+                val savePopCustomFragment = SavePopCustomFragment.Companion.newTargetInstance()
+                savePopCustomFragment.setTargetFragment(this, 2)
+                activity?.supportFragmentManager?.beginTransaction()?.let { it1 -> savePopCustomFragment.show(it1, SavePopCustomFragment::class.java.name) }
+            }
         }
 
 
